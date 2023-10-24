@@ -1,7 +1,7 @@
 # pyfortimanager
 Python API client library for Fortinet's [FortiManager](https://www.fortinet.com/products/management/fortimanager).
 
-It does not provide all endpoints available, but we strongly encourage to make a pull request with missing endpoints.
+It does not provide all endpoints or functionaility available. We encourage to make a pull request with needed missing endpoints.
 
 > **Note:** This library has been built and tested for FortiManager v7.0.x.
 
@@ -23,7 +23,7 @@ Optionally, its possible to set `adom` which defaults to `root` and `verify` whi
 ```
 import pyfortimanager
 
-FortiManager = pyfortimanager.api(
+fortimanager = pyfortimanager.api(
     host = "https://fortimanager.example.com",
     username = "apiuser",
     password = "secret",
@@ -39,8 +39,7 @@ There is a ton of data for a single FortiGate. This just outputs the name of the
 Meta field data is included by default.
 
 ```
-fmg_fortigates = FortiManager.fortigates.all()
-
+fmg_fortigates = fortimanager.fortigates.all()
 for fmg_fortigate in fmg_fortigates['data']:
     print(fmg_fortigate['name'])
 ```
@@ -52,12 +51,11 @@ FortiGate-VM64-2
 FortiGate-VM64-3
 ```
 
-### Using the status object.
+### Status object.
 You can use the status object to check if the request is a success or not, and retrieve the error message.
 
 ```
-fmg_fortigate = FortiManager.fortigates.all(fortigate="FortiGate-VM64-4")
-
+fmg_fortigate = fortimanager.fortigates.all(fortigate="FortiGate-VM64-4")
 if fmg_fortigate['status']['code'] == 0:
     print(fmg_fortigate['data']['name'])
 else:
@@ -76,12 +74,11 @@ else:
 This creates a model device in the Device Manager with the minimum required fields.
 
 ```
-fmg_fortigate_add = FortiManager.fortigates.add(
+fmg_fortigate_add = fortimanager.fortigates.add(
     serial = "FGT60FTK1234ABCD",
     mr = 0,
     os_ver = 7
 )
-
 print(fmg_fortigate_add)
 ```
 
@@ -119,5 +116,125 @@ print(fmg_fortigate_add)
         "message": "OK"
     },
     "url": "/dvm/cmd/add/device"
+}
+```
+
+### Retrieve all connected Wi-Fi clients on a FortiGate
+To retrieve all current active Wi-Fi clients on the FortiGate, we need to call the FortiOS API directly on the FortiGate through FortiManager's proxy API call.
+
+When making proxy calls, you'll retrieve two status objects. The first is for the FortiManager call and the the second is for the API call on the FortiGate.
+
+> **Note:** Proxy calls only works, if the FortiGate is online.
+
+```
+fmg_wifi_clients = fortimanager.fortiaps_proxy.clients(fortigate="FortiGate-VM64-1")
+print(fmg_wifi_clients)
+```
+
+**Output**
+```
+{
+    "data": [
+        {
+            "response": {
+                "action": "",
+                "build": 523,
+                "http_method": "GET",
+                "name": "client",
+                "path": "wifi",
+                "results": [
+                    {
+                        "11k_capable": false,
+                        "11r_capable": false,
+                        "11v_capable": true,
+                        "association_time": 1698143761,
+                        "authentication": "pass",
+                        "bandwidth_rx": 2493967,
+                        "bandwidth_tx": 2564936,
+                        "captive_portal_authenticated": 0,
+                        "channel": 44,
+                        "data_rate_bps": 573600000,
+                        "data_rxrate_bps": 286800000,
+                        "data_txrate_bps": 286800000,
+                        "encrypt": 1,
+                        "health": {
+                            "band": {
+                                "severity": "good",
+                                "value": "5ghz"
+                            },
+                            "signal_strength": {
+                                "severity": "good",
+                                "value": -52
+                            },
+                            "snr": {
+                                "severity": "good",
+                                "value": 43
+                            },
+                            "transmission_discard": {
+                                "severity": "good",
+                                "value": 0
+                            },
+                            "transmission_retry": {
+                                "severity": "good",
+                                "value": 0
+                            }
+                        },
+                        "host": "WINDOWS-PC",
+                        "hostname": "WINDOWS-PC",
+                        "idle_time": 1,
+                        "ip": "10.10.10.10",
+                        "ip6": [
+                            "fe80::c28d:52e5:68a4:95ad"
+                        ],
+                        "lan_authenticated": false,
+                        "mac": "aa:bb:cc:dd:ee:ff",
+                        "manufacturer": "Microsoft",
+                        "mimo": "2x2",
+                        "noise": -95,
+                        "os": "Windows",
+                        "radio_type": "802.11ax-5G",
+                        "security": 12,
+                        "security_str": "wpa2_only_enterprise",
+                        "signal": -52,
+                        "snr": 43,
+                        "ssid": "SSID",
+                        "sta_maxrate": 286800,
+                        "sta_rxrate": 286800,
+                        "sta_rxrate_mcs": 11,
+                        "sta_rxrate_score": 100,
+                        "sta_txrate": 286800,
+                        "sta_txrate_mcs": 11,
+                        "sta_txrate_score": 100,
+                        "tx_discard_percentage": 0,
+                        "tx_retry_percentage": 0,
+                        "user": "host/WINDOWS-PC.local.net",
+                        "vap_name": "SSID",
+                        "vci": "MSFT 5.0",
+                        "vlan_id": 201,
+                        "wtp_control_ip": "10.97.39.137",
+                        "wtp_control_local_ip": "10.97.39.137",
+                        "wtp_id": "FP431FTF12345678",
+                        "wtp_ip": "10.20.30.40",
+                        "wtp_name": "FAP-431F",
+                        "wtp_radio": 2
+                    }
+                ],
+                "serial": "FGT60FTK1234ABCD",
+                "status": "success",
+                "vdom": "root",
+                "version": "v7.0.12"
+            },
+            "status": {
+                "code": 0,
+                "message": "OK"
+            },
+            "target": "FortiGate-VM64-1"
+        }
+    ],
+    "status": {
+        "code": 0,
+        "message": "OK"
+    },
+    "url": "/sys/proxy/json"
 }
 ```

@@ -1,0 +1,69 @@
+from pyfortimanager.core.fortimanager import FortiManager
+
+
+class FortiSwitches_Proxy(FortiManager):
+    """API class for proxy calls to FortiSwitches. Send and receive API calls to/from an online FortiGate.
+    """
+
+    def __init__(self, **kwargs):
+        super(FortiSwitches_Proxy, self).__init__(**kwargs)
+
+    def all(self, fortigate: str, adom: str=None, timeout: int=None):
+        """Retrieves a list of all managed FortiSwitches on the FortiGate.
+
+        Args:
+            fortigate (str): Name of the FortiGate.
+            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/sys/proxy/json",
+            "data":
+                {
+                    "target": [
+                        f"/adom/{adom or self.api.adom}/device/{fortigate}"
+                    ],
+                    "action": "get",
+                    "resource": "/api/v2/monitor/switch-controller/managed-switch/status"
+                }
+        }
+
+        return self.post(method="exec", params=params)
+
+    def authorize(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None, timeout: int=None):
+        """Authorizes a FortiSwitch on the FortiGate.
+
+        Args:
+            switch_id (str): Serial number of the FortiSwitch to authorize.
+            fortigate (str): Name of the FortiGate.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/sys/proxy/json",
+            "data":
+                {
+                    "target": [
+                        f"/adom/{adom or self.api.adom}/device/{fortigate}"
+                    ],
+                    "action": "post",
+                    "payload": {
+                        "vdom": vdom,
+                        "mkey": switch_id,
+                        "admin": "enable"
+                    },
+                    "timeout": timeout or self.api.proxy_timeout,
+                    "resource": "/api/v2/monitor/switch-controller/managed-switch/update"
+                }
+        }
+
+        return self.post(method="exec", params=params)

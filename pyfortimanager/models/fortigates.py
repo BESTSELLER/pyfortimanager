@@ -65,7 +65,7 @@ class FortiGates(FortiManager):
 
         Args:
             name (str): Name of the FortiGate.
-            interface (str): Name of the interface.
+            interface (str): Name of an interface.
     
         Returns:
             dict: JSON data.
