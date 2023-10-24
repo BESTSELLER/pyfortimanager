@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 *.DS_Store
 
+# Distribution / packaging
+dist/
+*.egg-info/
+
 # Test
 test.py
 
