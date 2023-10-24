@@ -19,7 +19,7 @@ We need to provide the IP or FQDN to the FortiManager instance and a user with a
 
 Optionally, its possible to set `adom` which defaults to `root` and `verify` which defaults to `True`.
 
-
+**Code**
 ```
 import pyfortimanager
 
@@ -30,7 +30,6 @@ fortimanager = pyfortimanager.api(
 )
 ```
 
-
 ## Examples
 
 ### List all FortiGates.
@@ -38,6 +37,7 @@ There is a ton of data for a single FortiGate. This just outputs the name of the
 
 Meta field data is included by default.
 
+**Code**
 ```
 fmg_fortigates = fortimanager.fortigates.all()
 for fmg_fortigate in fmg_fortigates['data']:
@@ -54,6 +54,7 @@ FortiGate-VM64-3
 ### Status object.
 You can use the status object to check if the request is a success or not, and retrieve the error message.
 
+**Code**
 ```
 fmg_fortigate = fortimanager.fortigates.all(fortigate="FortiGate-VM64-4")
 if fmg_fortigate['status']['code'] == 0:
@@ -73,6 +74,7 @@ else:
 ### Adding a FortiGate
 This creates a model device in the Device Manager with the minimum required fields.
 
+**Code**
 ```
 fmg_fortigate_add = fortimanager.fortigates.add(
     serial = "FGT60FTK1234ABCD",
@@ -126,6 +128,7 @@ When making proxy calls, you'll retrieve two status objects. The first is for th
 
 > **Note:** Proxy calls only works, if the FortiGate is online.
 
+**Code**
 ```
 fmg_wifi_clients = fortimanager.fortiaps_proxy.clients(fortigate="FortiGate-VM64-1")
 print(fmg_wifi_clients)
@@ -210,9 +213,9 @@ print(fmg_wifi_clients)
                         "user": "host/WINDOWS-PC.local.net",
                         "vap_name": "SSID",
                         "vci": "MSFT 5.0",
-                        "vlan_id": 201,
-                        "wtp_control_ip": "10.97.39.137",
-                        "wtp_control_local_ip": "10.97.39.137",
+                        "vlan_id": 101,
+                        "wtp_control_ip": "10.20.30.40",
+                        "wtp_control_local_ip": "10.20.30.40",
                         "wtp_id": "FP431FTF12345678",
                         "wtp_ip": "10.20.30.40",
                         "wtp_name": "FAP-431F",
