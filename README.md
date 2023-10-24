@@ -33,7 +33,11 @@ FortiManager = pyfortimanager.api(
 
 ## Examples
 
-### List all FortiGates and their configuration (including meta fields).
+### List all FortiGates.
+There is a ton of data for a single FortiGate. This just outputs the name of the FortiGate.
+
+Meta field data is included by default.
+
 ```
 fmg_fortigates = FortiManager.fortigates.all()
 
