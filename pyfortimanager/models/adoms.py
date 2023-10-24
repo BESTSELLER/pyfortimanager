@@ -59,3 +59,19 @@ class ADOMs(FortiManager):
         }
 
         return self.post(method="exec", params=params)
+    
+    def commit(self, name: str):
+        """Commit changes to an entire ADOM.
+
+        Args:
+            name (str): Name of the ADOM to commit changes in.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/dvmdb/adom/{name}/workspace/commit"
+        }
+
+        return self.post(method="exec", params=params)
