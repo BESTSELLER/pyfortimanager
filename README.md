@@ -1,5 +1,6 @@
 # pyfortimanager
 Python API client library for Fortinet's [FortiManager](https://www.fortinet.com/products/management/fortimanager).
+
 It does not provide all endpoints available, but we strongly encourage to make a pull request with missing endpoints.
 
 > **Note:** This library has been built and tested for FortiManager v7.0.x.
@@ -14,24 +15,25 @@ Alternatively, you can clone the repo and run `python setup.py install`.
 
 To begin, import pyfortimanager and instantiate the API.
 
-We need to provide the hostname to the FortiManager instance, a username and password for the API user.
-Optional settings are `adom` which defaults to `root` and `verify` which defaults to `True`.
+We need to provide the IP or FQDN to the FortiManager instance and a user with access to the API.
+
+Optionally, its possible to set `adom` which defaults to `root` and `verify` which defaults to `True`.
 
 
 ```
 import pyfortimanager
 
 FortiManager = pyfortimanager.api(
-    host = "https://fmg.fortinet.com",
-    username = "username",
-    password = "password",
+    host = "https://fortimanager.example.com",
+    username = "apiuser",
+    password = "secret",
 )
 ```
 
 
-## Queries
+## Examples
 
-List all FortiGates.
+### List all FortiGates.
 ```
 fmg_fortigates = FortiManager.FortiGates.all()
 
@@ -43,7 +45,7 @@ for fmg_fortigate in fmg_fortigates['data']:
 >>> FortiGate-VM64-3
 ```
 
-Get a specific FortiGate
+### Retrieve a specific FortiGate
 ```
 fmg_fortigates = FortiManager.FortiGates.all(fortigate="FortiGate-VM64-1")
 ```
