@@ -81,11 +81,11 @@ class FortiGates(FortiManager):
 
         return self.post(method="get", params=params)
     
-    def add(self, name: str, serial: str, mr: int, os_ver: int, mgmt_mode: str="fmg", os_type: str="fos", adm_usr: str=None, adm_pass: str=None, description: str=None, meta_fields: dict=None, flags:int=67371040, prefer_img_ver: str=None, adom: str=None):
+    def add(self, serial: str, mr: int, os_ver: int, name: str=None, mgmt_mode: str="fmg", os_type: str="fos", adm_usr: str=None, adm_pass: str=None, description: str=None, meta_fields: dict=None, flags:int=67371040, prefer_img_ver: str=None, adom: str=None):
         """Adds a new FortiGate as a model device in FortiManager.
 
         Args:
-            name (str): Name of the FortiGate.
+            name (str): Name of the FortiGate. Default is serial number.
             serial (str): Serial number of the FortiGate.
             mr (int): Minor OS version.
             os_ver (int): Major OS version.
@@ -111,7 +111,7 @@ class FortiGates(FortiManager):
                     "flags": flags,
                     "mgmt_mode": mgmt_mode,
                     "mr": mr,
-                    "name": name,
+                    "name": name or serial,
                     "os_type": os_type,
                     "os_ver": os_ver,
                     "sn": serial
