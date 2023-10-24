@@ -3,8 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Unit test
-tests/
+# Test
+test.py
 
 # Environments
 .env

@@ -113,7 +113,7 @@ class FortiAPs(FortiManager):
         return self.post(method="get", params=params)
 
     def add(self, name: str, wtp_id: str, fortigate: str, vdom: str="root", wtp_profile: str=None, prefer_img_ver: str=None, description: str=None, adom: str=None):
-        """Adds a FortiAP.
+        """Adds a new FortiAP.
 
         Args:
             name (str): Name of the FortiAP.
@@ -121,7 +121,7 @@ class FortiAPs(FortiManager):
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
             wtp_profile (str, optional): Name of the AP profile used for this AP.
-            prefer_img_ver (str, optional): Enforce the firmware version when the FortiAP goes online. Ex. 7.2.3-b0365.
+            prefer_img_ver (str, optional): Enforce the firmware version of the FortiAP. Ex. 7.2.3-b0365.
             description (str, optional): Description of the FortiAP.
             adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
@@ -155,14 +155,14 @@ class FortiAPs(FortiManager):
 
         return self.post(method="add", params=params)
 
-    def update(self, wtp_id: str, fortigate: str, vdom: str="root", rename: str=None, wtp_profile: str=None, description: str=None, adom: str=None):
+    def update(self, wtp_id: str, fortigate: str, vdom: str="root", name: str=None, wtp_profile: str=None, description: str=None, adom: str=None):
         """Updates a FortiAP.
 
         Args:
             wtp_id (str): Serial number of the FortiAP to update.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
-            rename (str, optional): New name of the FortiAP.
+            name (str, optional): Name of the FortiAP.
             wtp_profile (str, optional): Name of the AP profile used for this AP.
             description (str, optional): Description of the FortiAP.
             adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
@@ -185,8 +185,8 @@ class FortiAPs(FortiManager):
         }
 
         # Optional fields
-        if rename:
-            params['data']['name'] = rename
+        if name:
+            params['data']['name'] = name
 
         if wtp_profile:
             params['data']['wtp_profile'] = wtp_profile
@@ -200,7 +200,7 @@ class FortiAPs(FortiManager):
         """Deletes a FortiAP.
 
         Args:
-            wtp_id (str): Serial number of the FortiAP.
+            wtp_id (str): Serial number of the FortiAP to delete.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
             adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.

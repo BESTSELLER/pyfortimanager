@@ -81,21 +81,22 @@ class FortiGates(FortiManager):
 
         return self.post(method="get", params=params)
     
-    def add(self, mgmt_mode: str, mr: int, os_ver: int, os_type: str, name: str, serial: str, adm_usr: str=None, adm_pass: str=None, description: str=None, meta_fields: dict=None, flags:int=67371040, adom: str=None):
+    def add(self, name: str, serial: str, mr: int, os_ver: int, mgmt_mode: str="fmg", os_type: str="fos", adm_usr: str=None, adm_pass: str=None, description: str=None, meta_fields: dict=None, flags:int=67371040, prefer_img_ver: str=None, adom: str=None):
         """Adds a new FortiGate as a model device in FortiManager.
 
         Args:
+            name (str): Name of the FortiGate.
+            serial (str): Serial number of the FortiGate.
+            mr (int): Minor OS version.
+            os_ver (int): Major OS version.
+            os_type (str): fos, fsw, foc, fml, faz, fwb, fch, fct, log, fmg, fsa, fdd, fac, fpx, fna, ffw, fsr, fad, fdc, fap, fxt, fts, fai, fwc, fis, fed. Default is fos.
+            mgmt_mode (str): unreg, fmg, faz, fmgfaz. Default is fmg.
+            flags (int): Various settings in the "Add Device"-dialog in FortiManager. Use FortiManager to retrieve a specific combination. Default is 67371040.
             adm_usr (str, optional): Default admin username.
             adm_pass (str, optional): Default admin password.
             description (str, optional): Description of the FortiGate.
             meta_fields (dict, optional): Meta fields for the FortiGate.
-            mgmt_mode (str): unreg, fmg, faz, fmgfaz
-            mr (int): Minor OS version.
-            name (str): Name of the FortiGate.
-            os_type (str): fos, fsw, foc, fml, faz, fwb, fch, fct, log, fmg, fsa, fdd, fac, fpx, fna, ffw, fsr, fad, fdc, fap, fxt, fts, fai, fwc, fis, fed.
-            os_ver (int): Major OS version.
-            serial (str): Serial number of the FortiGate.
-            flags (int): ?.
+            prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
             adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
@@ -126,14 +127,17 @@ class FortiGates(FortiManager):
             params['data']['device']['adm_pass'] = adm_pass
 
         if description:
-            params['data']['device']['description'] = description
+            params['data']['device']['desc'] = description
 
         if meta_fields:
             params['data']['device']['meta fields'] = meta_fields
 
+        if prefer_img_ver:
+            params['data']['device']['prefer_img_ver'] = prefer_img_ver
+
         return self.post(method="exec", params=params)
     
-    def update(self, fortigate: str, meta_fields: dict=None, adm_pass: str=None, adm_usr: str=None, description: str=None, ip: str=None, latitude: float=None, longitude: float=None, rename: str=None, hostname: str=None, adom: str=None):
+    def update(self, fortigate: str, meta_fields: dict=None, adm_pass: str=None, adm_usr: str=None, description: str=None, ip: str=None, latitude: float=None, longitude: float=None, name: str=None, hostname: str=None, prefer_img_ver: str=None, adom: str=None):
         """Updates a FortiGate.
 
         Args:
@@ -145,8 +149,9 @@ class FortiGates(FortiManager):
             ip (str, optional): Public IP address of the FortiGate.
             latitude (float, optional): GPS latitude coordinates.
             longitude (float, optional): GPS longitude coordinates.
-            rename (str, optional): New name of the FortiGate.
+            name (str, optional): Name of the FortiGate.
             hostname (str, optional): Hostname of the FortiGate.
+            prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
             adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
@@ -177,14 +182,17 @@ class FortiGates(FortiManager):
         if longitude:
             params['data']['longitude'] = longitude
 
-        if rename:
-            params['data']['name'] = rename
+        if name:
+            params['data']['name'] = name
 
         if hostname:
             params['data']['hostname'] = hostname
 
         if meta_fields:
             params['data']['meta fields'] = meta_fields
+
+        if prefer_img_ver:
+            params['data']['device']['prefer_img_ver'] = prefer_img_ver
 
         return self.post(method="update", params=params)
     

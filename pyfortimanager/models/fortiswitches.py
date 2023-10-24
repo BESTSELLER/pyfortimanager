@@ -130,3 +130,176 @@ class FortiSwitches(FortiManager):
         }
 
         return self.post(method="update", params=params)
+    
+    def add_to_adom(self, name: str, platform: str, switch_id: str, fortigate: str, vdom: str="root", interface: str="Fortilink", adom: str=None, prefer_img_ver: str=None):
+        """Adds a new FortiSwitch as a model device in the FortiSwitch Manager (ADOM).
+
+        Args:
+            name (str): Name of the FortiSwitch.
+            platform (str): Model name of the FortiSwitch. Ex. FortiSwitch-108E-FPOE.
+            switch_id (str): Serial number of the FortiSwitch.
+            interface (str): Name of the FortiGate interface connected to the FortiSwitch.
+            fortigate (str): Name of the FortiGate connected to the FortiSwitch.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            prefer_img_ver (str, optional): Enforce the firmware version of the FortiSwitch. Ex. 7.2.5-b0453.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch",
+            "data": {
+                "name": name,
+                "platform": platform,
+                "switch-id": switch_id,
+                "vlan-interface": interface
+            },
+            "scope member": [
+                {
+                    "name": fortigate,
+                    "vdom": vdom
+                }
+            ]
+        }
+
+        # Optional fields
+        if prefer_img_ver:
+            params['data']['prefer-img-ver'] = prefer_img_ver
+
+        return self.post(method="add", params=params)
+    
+    def add_to_fortigate(self, name: str, switch_id: str, fortigate: str, vdom: str="root", prefer_img_ver: str=None):
+        """Adds a new FortiSwitch as a model device on the FortiGate in the FortiSwitch Manager.
+
+        Args:
+            name (str): Name of the FortiSwitch.
+            switch_id (str): Serial number of the FortiSwitch.
+            fortigate (str): Name of the FortiGate connected to the FortiSwitch.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            prefer_img_ver (str, optional): Enforce the firmware version for the FortiSwitch. Ex. 7.2.5-b0453.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/device/{fortigate}/vdom/{vdom}/switch-controller/managed-switch",
+            "data": {
+                "name": name,
+                "switch-id": switch_id,
+            }
+        }
+
+        # Optional fields
+        if prefer_img_ver:
+            params['data']['prefer-img-ver'] = prefer_img_ver
+        
+        return self.post(method="add", params=params)
+    
+    def update_in_adom(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None, name: str=None, prefer_img_ver: str=None):
+        """Updates a FortiSwitch in the FortiSwitch Manager (ADOM).
+
+        Args:
+            switch_id (str): Serial number of the FortiSwitch to update.
+            fortigate (str): Name of the FortiGate connected to the FortiSwitch.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            name (str, optional): Name of the FortiSwitch.
+            prefer_img_ver (str, optional): Enforce the firmware version for the FortiSwitch. Ex. 7.2.5-b0453.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch/{switch_id}",
+            "data": {},
+            "scope member": [
+                {
+                    "name": fortigate,
+                    "vdom": vdom
+                }
+            ]
+        }
+
+        # Optional fields
+        if name:
+            params['data']['name'] = name
+
+        if prefer_img_ver:
+            params['data']['prefer-img-ver'] = prefer_img_ver
+        
+        return self.post(method="update", params=params)
+
+    def update_on_fortigate(self, switch_id: str, fortigate: str, vdom: str="root", name: str=None, description: str=None):
+        """Updates a FortiSwitch on the FortiGate in the FortiSwitch Manager.
+
+        Args:
+            switch_id (str): Serial number of the FortiSwitch to update.
+            fortigate (str): Name of the FortiGate connected to the FortiSwitch.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            name (str, optional): Name of the FortiSwitch.
+            description (str, optional): Description of the FortiSwitch.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/device/{fortigate}/vdom/{vdom}/switch-controller/managed-switch/{switch_id}",
+            "data": {}
+        }
+
+        # Optional fields
+        if name:
+            params['data']['name'] = name
+
+        if description:
+            params['data']['description'] = description
+
+        return self.post(method="update", params=params)
+    
+    def delete_in_adom(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None):
+        """Updates a FortiSwitch in the FortiSwitch Manager (ADOM).
+
+        Args:
+            switch_id (str): Serial number of the FortiSwitch to delete.
+            fortigate (str): Name of the FortiGate.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch/{switch_id}",
+            "scope member": [
+                {
+                    "name": fortigate,
+                    "vdom": vdom
+                }
+            ],
+        }
+
+        return self.post(method="delete", params=params)
+
+    def delete_on_fortigate(self, switch_id: str, fortigate: str, vdom: str="root"):
+        """Deletes a FortiSwitch on the FortiGate in the FortiSwitch Manager.
+
+        Args:
+            switch_id (str): Serial number of the FortiSwitch to delete.
+            fortigate (str): Name of the FortiGate.
+            vdom (str): Name of the virtual domain for the FortiGate.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/device/{fortigate}/vdom/{vdom}/switch-controller/managed-switch/{switch_id}"
+        }
+
+        return self.post(method="delete", params=params)
