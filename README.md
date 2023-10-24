@@ -1,6 +1,5 @@
 # pyfortimanager
 Python API client library for Fortinet's [FortiManager](https://www.fortinet.com/products/management/fortimanager).
-
 It does not provide all endpoints or functionality available. We encourage to make a pull request with needed missing endpoints.
 
 > **Note:** This library has been built and tested for FortiManager v7.0.x.
@@ -21,7 +20,6 @@ It's therefore not needed to login and logout in your code, as this library hand
 To begin, import pyfortimanager and instantiate the API.
 
 We need to provide the IP or FQDN to the FortiManager instance and a user with access to the API.
-
 Optionally, its possible to set `adom` which defaults to `root` and `verify` which defaults to `True`.
 
 **Code**
