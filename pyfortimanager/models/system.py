@@ -77,11 +77,11 @@ class System(FortiManager):
 
         return self.post(method="get", params=params)
     
-    def proxy(self, targets: list, action: str="get", payload: object=None, resource: str=None, timeout: int=None):
+    def proxy(self, target: list, action: str="get", payload: object=None, resource: str=None, timeout: int=None):
         """Send and receive a JSON request to/from managed FortiGates. The response will be an array of data, one for each queried device.
 
         Args:
-            targets (list): A list of FortiGates with their ADOM to target. Ex. ["/adom/<name_of_adom>/device/<name_of_fortigate>"]
+            target (list): A list of FortiGates with their ADOM to target. Ex. ["/adom/<name_of_adom>/device/<name_of_fortigate>"]
             action (str): Specify HTTP action for the request: get, post, put, delete. Default is get.
             resource (str): URL on the remote device to be accessed. Ex. /api/v2/<rest_of_the_endpoint>
             payload (object, optional): An object containing the payload needed for the resource URL. Ex. { "vdom": "root", "admin": "enable" }
@@ -95,7 +95,7 @@ class System(FortiManager):
             "url": "/sys/proxy/json",
             "data":
                 {
-                    "target": targets,
+                    "target": target,
                     "action": action,
                     "timeout": timeout or self.api.proxy_timeout,
                     "resource": resource
