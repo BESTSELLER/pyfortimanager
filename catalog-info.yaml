@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: pyfortimanager
+  description: Python API client library for Fortinet's FortiManager.
+  annotations:
+    github.com/project-slug: BESTSELLER/pyfortimanager
+spec:
+  type: service
+  lifecycle: experimental
+  owner: network
