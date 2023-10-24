@@ -1,7 +1,7 @@
 # pyfortimanager
 Python API client library for Fortinet's [FortiManager](https://www.fortinet.com/products/management/fortimanager).
 
-It does not provide all endpoints or functionaility available. We encourage to make a pull request with needed missing endpoints.
+It does not provide all endpoints or functionality available. We encourage to make a pull request with needed missing endpoints.
 
 > **Note:** This library has been built and tested for FortiManager v7.0.x.
 
@@ -22,7 +22,6 @@ Optionally, its possible to set `adom` which defaults to `root` and `verify` whi
 **Code**
 ```
 import pyfortimanager
-
 fortimanager = pyfortimanager.api(
     host = "https://fortimanager.example.com",
     username = "apiuser",
@@ -122,7 +121,7 @@ print(fmg_fortigate_add)
 ```
 
 ### Retrieve all connected Wi-Fi clients on a FortiGate
-To retrieve all current active Wi-Fi clients on the FortiGate, we need to call the FortiOS API directly on the FortiGate through FortiManager's proxy API call.
+To retrieve all current active Wi-Fi clients on the FortiGate, we need to call the FortiOS API directly on the FortiGate through FortiManager's proxy API.
 
 When making proxy calls, you'll retrieve two status objects. The first is for the FortiManager call and the the second is for the API call on the FortiGate.
 
