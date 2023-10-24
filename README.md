@@ -6,13 +6,11 @@ It does not provide all endpoints or functionality available. We encourage to ma
 > **Note:** This library has been built and tested for FortiManager v7.0.x.
 
 ## Installation
-
 To install run `pip install pyfortimanager`.
 
 Alternatively, you can clone the repo and run `python setup.py install`.
 
 ## Quick Start
-
 To begin, import pyfortimanager and instantiate the API.
 
 We need to provide the IP or FQDN to the FortiManager instance and a user with access to the API.
@@ -30,7 +28,6 @@ fortimanager = pyfortimanager.api(
 ```
 
 ## Examples
-
 ### List all FortiGates.
 There is a ton of data for a single FortiGate. This code retrieves all of it, but only prints the name of the FortiGates.
 
