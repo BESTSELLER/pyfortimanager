@@ -83,7 +83,6 @@ class FortiManager(object):
 
         # Check if we have a session in-memory
         if self.api.session:
-            print("Valid session.")
 
             # Use the sys_status endpoint as a test to see if our session is valid
             data = {
@@ -101,17 +100,14 @@ class FortiManager(object):
 
             # HTTP 200 OK
             if sys_status.status_code == 200:
-                print("OK /sys/status.")
 
                 # If the FortiManager request is unsuccessful, then we log out and log in again.
                 if sys_status.json()['result'][0]['status']['code'] != 0:
-                    print("Could not access /sys/status. Logging out and in again")
                     self.logout()
                     self.login()
 
         # Otherwise, log in again.
         else:
-            print("No valid session. Logging in again...")
             self.login()
 
     def post(self, method: str, params: dict):
