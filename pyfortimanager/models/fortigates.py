@@ -95,7 +95,7 @@ class FortiGates(FortiManager):
             adm_usr (str, optional): Default admin username.
             adm_pass (str, optional): Default admin password.
             description (str, optional): Description of the FortiGate.
-            meta_fields (dict, optional): Meta fields for the FortiGate.
+            meta_fields (dict, optional): Meta fields for the FortiGate. Default is fmg.
             prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
