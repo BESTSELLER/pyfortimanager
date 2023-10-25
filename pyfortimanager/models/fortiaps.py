@@ -15,7 +15,7 @@ class FortiAPs(FortiManager):
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
             wtp_id (str): Serial number of a specific FortiAP.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -97,7 +97,7 @@ class FortiAPs(FortiManager):
 
         Args:
             name (str): Name of a specific AP profile.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -123,7 +123,7 @@ class FortiAPs(FortiManager):
             wtp_profile (str, optional): Name of the AP profile used for this AP.
             prefer_img_ver (str, optional): Enforce the firmware version of the FortiAP. Ex. 7.2.3-b0365.
             description (str, optional): Description of the FortiAP.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -165,7 +165,7 @@ class FortiAPs(FortiManager):
             name (str, optional): Name of the FortiAP.
             wtp_profile (str, optional): Name of the AP profile used for this AP.
             description (str, optional): Description of the FortiAP.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -203,7 +203,7 @@ class FortiAPs(FortiManager):
             wtp_id (str): Serial number of the FortiAP to delete.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

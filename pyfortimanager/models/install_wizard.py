@@ -14,7 +14,7 @@ class Install_Wizard(FortiManager):
         Args:
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -42,7 +42,7 @@ class Install_Wizard(FortiManager):
             policy_package (str): Name of the policy package to be installed.
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

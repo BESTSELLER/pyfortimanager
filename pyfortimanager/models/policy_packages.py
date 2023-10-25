@@ -13,7 +13,7 @@ class Policy_Packages(FortiManager):
 
         Args:
             name (str, optional): Name of a policy package.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -36,7 +36,7 @@ class Policy_Packages(FortiManager):
             name (str): Name of the policy package.
             fortigate (str): Name of the FortiGate to be added as a member.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -61,7 +61,7 @@ class Policy_Packages(FortiManager):
             name (str): Name of the policy package.
             fortigate (str): Name of the FortiGate to remove as a member.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

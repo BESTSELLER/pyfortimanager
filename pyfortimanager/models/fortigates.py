@@ -13,7 +13,7 @@ class FortiGates(FortiManager):
 
         Args:
             name (str): Name of a specific FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -97,7 +97,7 @@ class FortiGates(FortiManager):
             description (str, optional): Description of the FortiGate.
             meta_fields (dict, optional): Meta fields for the FortiGate.
             prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -152,7 +152,7 @@ class FortiGates(FortiManager):
             name (str, optional): Name of the FortiGate.
             hostname (str, optional): Hostname of the FortiGate.
             prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -201,7 +201,7 @@ class FortiGates(FortiManager):
 
         Args:
             fortigate (str): Name of the FortiGate to delete.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

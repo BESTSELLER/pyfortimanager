@@ -13,7 +13,7 @@ class Device_Groups(FortiManager):
 
         Args:
             name (str): Name of a specific device group.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -38,7 +38,7 @@ class Device_Groups(FortiManager):
         Args:
             name (str): Name of the device group.
             description (str, optional): Description of the device group.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -61,7 +61,7 @@ class Device_Groups(FortiManager):
             name (str): Name of the device group to update.
             rename (str, optional): New name of the device group.
             description (str, optional): Description of the device group.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -86,7 +86,7 @@ class Device_Groups(FortiManager):
 
         Args:
             name (str): Name of the device group to delete.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -105,7 +105,7 @@ class Device_Groups(FortiManager):
             name (str): Name of the device group.
             fortigate (str): Name of the FortiGate to add as a member.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -130,7 +130,7 @@ class Device_Groups(FortiManager):
             name (str): Name of the device group.
             fortigate (str): Name of the FortiGate to remove as a member.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

@@ -13,7 +13,7 @@ class Scripts(FortiManager):
 
         Args:
             name (str): Name of a script.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -36,7 +36,7 @@ class Scripts(FortiManager):
             name (str): Name of the script to execute.
             fortigate (str): Name of the FortiGate to run the script on.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

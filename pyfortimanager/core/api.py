@@ -1,9 +1,9 @@
 from pyfortimanager.models.adoms import ADOMs
 from pyfortimanager.models.cli_template_groups import CLI_Template_Groups
 from pyfortimanager.models.device_groups import Device_Groups
-from pyfortimanager.models.firmware import Firmware
 from pyfortimanager.models.fortiaps_proxy import FortiAPs_Proxy
 from pyfortimanager.models.fortiaps import FortiAPs
+from pyfortimanager.models.fortigates_proxy import FortiGates_Proxy
 from pyfortimanager.models.fortigates import FortiGates
 from pyfortimanager.models.fortiswitches_proxy import FortiSwitches_Proxy
 from pyfortimanager.models.fortiswitches import FortiSwitches
@@ -46,12 +46,6 @@ class Api(object):
         return Device_Groups(api=self)
 
     @property
-    def firmware(self):
-        """Endpoints related to Firmware.
-        """
-        return Firmware(api=self)
-
-    @property
     def fortiaps_proxy(self):
         """Endpoints related to FortiAP proxy calls on a FortiGate.
         """
@@ -63,6 +57,12 @@ class Api(object):
         """
         return FortiAPs(api=self)
     
+    @property
+    def fortigates_proxy(self):
+        """Endpoints related to proxy calls on a FortiGate.
+        """
+        return FortiGates_Proxy(api=self)
+
     @property
     def fortigates(self):
         """Endpoints related to FortiGate management.

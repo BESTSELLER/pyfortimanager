@@ -13,7 +13,7 @@ class FortiAPs_Proxy(FortiManager):
 
         Args:
             fortigate (str): Name of the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
 
         Returns:
@@ -42,7 +42,7 @@ class FortiAPs_Proxy(FortiManager):
             wtp_id (str): Serial number of the FortiAP to authorize.
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
 
         Returns:
@@ -75,7 +75,7 @@ class FortiAPs_Proxy(FortiManager):
         Args:
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
 
         Returns:

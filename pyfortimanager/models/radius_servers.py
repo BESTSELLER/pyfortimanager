@@ -13,7 +13,7 @@ class RADIUS_Servers(FortiManager):
 
         Args:
             name (str): Name of the radius server.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -41,7 +41,7 @@ class RADIUS_Servers(FortiManager):
             radius_secret (str): Secret for the primary RADIUS server.
             radius_secondary_server_ip (str, optional): IP of the secondary RADIUS server.
             radius_secondary_secret (str, optional): Secret for the secondary RADIUS server.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -85,7 +85,7 @@ class RADIUS_Servers(FortiManager):
             radius_secret (str): Secret for the primary RADIUS server.
             radius_secondary_server_ip (str): IP of the secondary RADIUS server.
             radius_secondary_secret (str): Secret for the secondary RADIUS server.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

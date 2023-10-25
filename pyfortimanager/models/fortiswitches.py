@@ -15,7 +15,7 @@ class FortiSwitches(FortiManager):
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
             switch_id (str, optional): Serial number of a specific FortiSwitch.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -141,7 +141,7 @@ class FortiSwitches(FortiManager):
             interface (str): Name of the FortiGate interface connected to the FortiSwitch.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             prefer_img_ver (str, optional): Enforce the firmware version of the FortiSwitch. Ex. 7.2.5-b0453.
 
         Returns:
@@ -205,7 +205,7 @@ class FortiSwitches(FortiManager):
             switch_id (str): Serial number of the FortiSwitch to update.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             name (str, optional): Name of the FortiSwitch.
             prefer_img_ver (str, optional): Enforce the firmware version for the FortiSwitch. Ex. 7.2.5-b0453.
 
@@ -268,7 +268,7 @@ class FortiSwitches(FortiManager):
             switch_id (str): Serial number of the FortiSwitch to delete.
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.

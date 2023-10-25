@@ -13,7 +13,7 @@ class CLI_Template_Groups(FortiManager):
 
         Args:
             name (str, optional): Name of a CLI template group.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -39,7 +39,7 @@ class CLI_Template_Groups(FortiManager):
             name (str): Name of the CLI template group.
             description (str, optional): Description of the CLI template group.
             members (list, optional): List of CLI Templates in the group.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -63,7 +63,7 @@ class CLI_Template_Groups(FortiManager):
             name (str): Name of the CLI template group to update.
             description (str, optional): Description of the CLI template group.
             members (list, optional): List of CLI Templates in the group.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -90,7 +90,7 @@ class CLI_Template_Groups(FortiManager):
 
         Args:
             name (str): Name of the CLI template group to delete.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -115,7 +115,7 @@ class CLI_Template_Groups(FortiManager):
             name (str): Name of the CLI template group.
             fortigate (str): Name of the FortiGate to add as a member.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -140,7 +140,7 @@ class CLI_Template_Groups(FortiManager):
             name (str): Name of the CLI template group.
             device (str): Name of the FortiGate to remove as a member.
             vdom (str): Name of the virtual domain for the FortiGate.
-            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
