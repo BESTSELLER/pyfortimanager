@@ -26,6 +26,8 @@ class Api(object):
         self.adom = adom
         self.verify = verify
         self.proxy_timeout = proxy_timeout
+        self.session = None
+        self.sessionid = None
 
     @property
     def adoms(self):
