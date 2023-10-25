@@ -22,7 +22,7 @@ class FortiManager(object):
             dict: JSON data.
         """
 
-        # Only login, if we don't have a session stored in memory
+        # Only log in, if we don't have a session stored in memory.
         if self.session is None or self.sessionid is None:
             self.session = requests.session()
 
@@ -45,8 +45,11 @@ class FortiManager(object):
 
             # HTTP 200 OK
             if response.status_code == 200:
+
+                # Check if the FortiManager request is successful
                 if response.json()['result'][0]['status']['code'] == 0:
                     self.sessionid = response.json()['session']
+
                 return response.json()
 
     def logout(self):
@@ -56,7 +59,7 @@ class FortiManager(object):
             dict: JSON data.
         """
 
-        # Only logout, if we have a session stored in-memory
+        # Only log out, if we have a session stored in-memory.
         if self.session:
             data = {
                 "method": "exec",
@@ -83,7 +86,7 @@ class FortiManager(object):
         # Check if we have a session in-memory
         if self.session:
 
-            # Use sys_status as a test endpoint
+            # Use the sys_status endpoint as a test to see if our session is valid
             data = {
                 "method": "get",
                 "params": [
@@ -97,11 +100,15 @@ class FortiManager(object):
             self.session.mount("http://", HTTPAdapter(max_retries=self.max_retries))
             sys_status = self.session.post(url=self.base_url, json=data, verify=self.api.verify)
 
-            # If not OK, log out and log in again.
+            # HTTP 200 OK
             if sys_status.status_code == 200:
+
+                # If the FortiManager request is unsuccessful, then we log out and log in again.
                 if sys_status.json()['result'][0]['status']['code'] != 0:
                     self.logout()
                     self.login()
+
+        # Otherwise, log in again.
         else:
             self.login()
 
@@ -110,7 +117,7 @@ class FortiManager(object):
 
         Args:
             method (str): get, exec, add, set, update, delete.
-            params (dict): JSON data to send with the request.
+            params (dict): Payload data to send with the request.
 
         Returns:
             dict: JSON data.

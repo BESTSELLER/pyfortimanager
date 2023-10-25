@@ -11,8 +11,8 @@ Alternatively, you can clone the repo and run `python setup.py install`.
 
 ## Login handling
 As the FortiManager API does not provide an expiration date/time when logging in, we've made some workarounds to handle login sessions without hitting the maximum login session limit in FortiManager.
-We do this by checking if our session is still valid by hitting an API endpoint, and if not we logout with our old token and login again to retrieve a new token before executing the actual requested API endpoint.
-We also use the standard Python module `atexit` to gracefully logout during a Python script executing.
+We do this by checking if our session is still valid by hitting an API endpoint, and if not we log out with our old token and log in again to retrieve a new token before executing the actual requested API endpoint.
+Additionally, we also use the standard Python module `atexit` to gracefully log out during a Python script executing.
 
 It's therefore not needed to login and logout in your code, as this library handles that for you.
 
