@@ -60,6 +60,31 @@ class FortiGates(FortiManager):
 
         return self.post(method="exec", params=params)
 
+    def refresh(self, fortigates: dict, adom: str=None):
+        """Refreshes a list of FortiGates.
+
+        Args:
+            fortigates (dict): Dict of FortiGate name and OID's to refresh. Ex: { "name": "FortiGate-VM64-1", "oid": "12345" }, { "name": "FortiGate-VM64-2", "oid": "23456" }
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/dvm/cmd/update/dev-list",
+            "data": {
+                "adom": adom or self.api.adom,
+                "flags": [
+                    "create_task",
+                    "nonblocking"
+                ],
+                "update-dev-member-list": [fortigates]
+            }
+        }
+
+        return self.post(method="exec", params=params)
+
     def interfaces(self, fortigate: str, interface: str=None):
         """Retrieves all interfaces or a single interface from a FortiGate.
 

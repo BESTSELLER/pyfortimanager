@@ -70,12 +70,13 @@ class FortiSwitches(FortiManager):
 
         return self.post(method="exec", params=params)
     
-    def refresh(self, fortigates: list):
-        """Refreshes all FortiSwitches from a FortiGate.
+    def refresh(self, fortigates: list, adom: str=None):
+        """Refreshes all FortiSwitches from one or more FortiGates.
 
         Args:
             fortigates (list): List of FortiGate OID's to refresh. Example: [60123, 601234]
-    
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
         Returns:
             dict: JSON data.
         """
@@ -83,7 +84,7 @@ class FortiSwitches(FortiManager):
         params = {
             "url": "/deployment/get/controller/status",
             "data": {
-                "adom": 3,
+                "adom": adom or self.api.adom,
                 "ctype": 4,
                 "device": fortigates,
                 "options": 3,
