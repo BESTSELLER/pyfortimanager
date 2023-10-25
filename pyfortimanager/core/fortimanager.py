@@ -103,7 +103,6 @@ class FortiManager(object):
 
                 # If the FortiManager request is unsuccessful, then we log out and log in again.
                 if sys_status.json()['result'][0]['status']['code'] != 0:
-                    self.logout()
                     self.login()
 
         # Otherwise, log in again.
