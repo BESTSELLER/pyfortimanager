@@ -134,7 +134,8 @@ class FortiAPs(FortiManager):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/wireless-controller/wtp",
             "data": {
                 "name": name,
-                "wtp-id": wtp_id
+                "wtp-id": wtp_id,
+                "_platform-type": 68
             },
             "scope member": [
                 {
@@ -146,7 +147,7 @@ class FortiAPs(FortiManager):
 
         # Optional fields
         if wtp_profile:
-            params['data']['wtp_profile'] = wtp_profile
+            params['data']['wtp-profile'] = wtp_profile
         
         if prefer_img_ver:
             params['data']['_prefer-img-ver'] = prefer_img_ver
