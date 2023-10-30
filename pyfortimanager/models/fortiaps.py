@@ -134,8 +134,7 @@ class FortiAPs(FortiManager):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/wireless-controller/wtp",
             "data": {
                 "name": name,
-                "wtp-id": wtp_id,
-                "_platform-type": 68
+                "wtp-id": wtp_id
             },
             "scope member": [
                 {
