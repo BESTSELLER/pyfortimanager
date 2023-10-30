@@ -106,13 +106,13 @@ class System(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def tasks(self, task:int=None, filter: list=None, loadsub: int=0):
+    def tasks(self, task:int=None, filter: list=None, loadsub: bool=True):
         """Retrieves all FortiManager tasks or a single task.
 
         Args:
             task (int): ID of a specific task.
             filter (list): Filter the result according to a set of criteria. example: List [ "{attribute}", "==", "{value}" ]
-            loadsub (int): Enable or disable the return of any sub-objects.
+            loadsub (bool): Enable or disable the return of any sub-objects. Default is enabled.
 
         Returns:
             dict: JSON data.
