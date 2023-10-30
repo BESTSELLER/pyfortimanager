@@ -190,7 +190,7 @@ class FortiAPs(FortiManager):
             params['data']['name'] = name
 
         if wtp_profile:
-            params['data']['wtp_profile'] = wtp_profile
+            params['data']['wtp-profile'] = wtp_profile
 
         if description:
             params['data']['location'] = description
