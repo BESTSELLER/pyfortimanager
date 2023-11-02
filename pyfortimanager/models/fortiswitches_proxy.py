@@ -9,7 +9,7 @@ class FortiSwitches_Proxy(FortiManager):
         super(FortiSwitches_Proxy, self).__init__(**kwargs)
 
     def all(self, fortigate: str, switch_id: str=None, adom: str=None, timeout: int=None):
-        """Retrieves a list of all managed FortiSwitches on the FortiGate.
+        """Retrieves a list of all or a single managed FortiSwitches on the FortiGate.
 
         Args:
             fortigate (str): Name of the FortiGate.
