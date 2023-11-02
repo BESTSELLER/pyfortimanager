@@ -59,7 +59,7 @@ class FortiGates_Proxy(FortiManager):
                     ],
                     "action": "get",
                     "timeout": timeout or self.api.proxy_timeout,
-                    "resource": f"/api/v2/monitor/system/resource/usage/?&scope={scope}"
+                    "resource": f"/api/v2/monitor/system/resource/usage/?scope={scope}"
                 }
         }
 
@@ -97,7 +97,7 @@ class FortiGates_Proxy(FortiManager):
                     ],
                     "action": "get",
                     "timeout": timeout or self.api.proxy_timeout,
-                    "resource": f"/api/v2/monitor/system/interface/?&scope={scope}&include_vlan={include_vlan}&include_aggregate={include_aggregate}"
+                    "resource": f"/api/v2/monitor/system/interface/?scope={scope}&include_vlan={include_vlan}&include_aggregate={include_aggregate}"
                 }
         }
 
@@ -106,7 +106,35 @@ class FortiGates_Proxy(FortiManager):
             params['data']['resource'] += f"&interface_name={interface}"
 
         return self.post(method="exec", params=params)
-    
+
+    def transceivers(self, fortigate: str, adom: str=None, scope: str="global", timeout: int=None):
+        """Retrieves a list of transceivers used on the FortiGate.
+
+        Args:
+            fortigate (str): Name of the FortiGate.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            scope (str): Scope from which to retrieve the interface stats from [vdom|global]. Default is global.
+            timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
+            
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/sys/proxy/json",
+            "data":
+                {
+                    "target": [
+                        f"/adom/{adom or self.api.adom}/device/{fortigate}"
+                    ],
+                    "action": "get",
+                    "timeout": timeout or self.api.proxy_timeout,
+                    "resource": f"/api/v2/monitor/system/interface/transceivers?scope={scope}"
+                }
+        }
+
+        return self.post(method="exec", params=params)
+
     def dhcp_leases(self, fortigate: str, adom: str=None, scope: str="global", ipv6: bool=True, interface: str=None, timeout: int=None):
         """Retrieves a list of all DHCP and DHCPv6 leases on the FortiGate.
 
@@ -131,7 +159,7 @@ class FortiGates_Proxy(FortiManager):
                     ],
                     "action": "get",
                     "timeout": timeout or self.api.proxy_timeout,
-                    "resource": f"/api/v2/monitor/system/dhcp/?&scope={scope}&ipv6={ipv6}"
+                    "resource": f"/api/v2/monitor/system/dhcp/?scope={scope}&ipv6={ipv6}"
                 }
         }
 
