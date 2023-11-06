@@ -68,7 +68,7 @@ class RADIUS_Servers(FortiManager):
             params['data']['secondary-server'] = radius_secondary_server_ip
 
         if radius_secondary_secret:
-            params['data']['server'] = radius_secondary_secret
+            params['data']['secondary-secret'] = radius_secondary_secret
 
         return self.post(method="add", params=params)
      
@@ -114,7 +114,7 @@ class RADIUS_Servers(FortiManager):
             params['data']['secondary-server'] = radius_secondary_server_ip
 
         if radius_secondary_secret:
-            params['data']['server'] = radius_secondary_secret
+            params['data']['secondary-secret'] = radius_secondary_secret
 
         if fortigate_source_ip:
             params['data']['source-ip'] = fortigate_source_ip
