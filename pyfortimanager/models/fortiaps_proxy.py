@@ -68,6 +68,40 @@ class FortiAPs_Proxy(FortiManager):
         }
 
         return self.post(method="exec", params=params)
+
+    def deauthorize(self, wtp_id: str, fortigate: str, vdom: str="root", adom: str=None, timeout: int=None):
+        """Deauthorizes a FortiAP on the FortiGate.
+
+        Args:
+            wtp_id (str): Serial number of the FortiAP to deauthorize.
+            fortigate (str): Name of the FortiGate.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/sys/proxy/json",
+            "data":
+                {
+                    "target": [
+                        f"/adom/{adom or self.api.adom}/device/{fortigate}"
+                    ],
+                    "action": "post",
+                    "payload": {
+                        "vdom": vdom,
+                        "wtpname": wtp_id,
+                        "admin": "discovered"
+                    },
+                    "timeout": timeout or self.api.proxy_timeout,
+                    "resource": "/api/v2/monitor/wifi/managed_ap/set_status"
+                }
+        }
+
+        return self.post(method="exec", params=params)
     
     def clients(self, fortigate: str, vdom: str="root", adom: str=None, timeout: int=None):
         """Retrieves a list of all connected Wi-Fi clients on the FortiGate.

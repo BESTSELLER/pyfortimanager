@@ -72,3 +72,37 @@ class FortiSwitches_Proxy(FortiManager):
         }
 
         return self.post(method="exec", params=params)
+    
+    def deauthorize(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None, timeout: int=None):
+        """Deauthorizes a FortiSwitch on the FortiGate.
+
+        Args:
+            switch_id (str): Serial number of the FortiSwitch to deauthorize.
+            fortigate (str): Name of the FortiGate.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/sys/proxy/json",
+            "data":
+                {
+                    "target": [
+                        f"/adom/{adom or self.api.adom}/device/{fortigate}"
+                    ],
+                    "action": "post",
+                    "payload": {
+                        "vdom": vdom,
+                        "mkey": switch_id,
+                        "admin": "discovered"
+                    },
+                    "timeout": timeout or self.api.proxy_timeout,
+                    "resource": "/api/v2/monitor/switch-controller/managed-switch/update"
+                }
+        }
+
+        return self.post(method="exec", params=params)

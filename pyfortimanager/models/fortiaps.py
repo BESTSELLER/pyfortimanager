@@ -8,13 +8,13 @@ class FortiAPs(FortiManager):
     def __init__(self, **kwargs):
         super(FortiAPs, self).__init__(**kwargs)
 
-    def all(self, fortigate: str, vdom: str="root", wtp_id: str=None, adom: str=None):
+    def all(self, fortigate: str=None, vdom: str="root", wtp_id: str=None, adom: str=None):
         """Retrieves all FortiAPs or a single FortiAP from a FortiGate.
 
         Args:
-            fortigate (str): Name of the FortiGate.
+            fortigate (str, optional): Optional name of a specific FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
-            wtp_id (str): Serial number of a specific FortiAP.
+            wtp_id (str, optional): Optional serial number of a specific FortiAP. Note: FortiGate is required to use this filter.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
@@ -25,14 +25,19 @@ class FortiAPs(FortiManager):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/wireless-controller/wtp",
             "scope member": [
                 {
-                    "name": fortigate,
-                    "vdom": vdom
+                    "name": "All_FortiGate"
                 }
             ]
         }
 
-        if wtp_id:
-            params['url'] += f"/{wtp_id}"
+        # Optional fields
+        if fortigate:
+            params['scope member'][0]['name'] = fortigate
+            params['scope member'][0]['vdom'] = vdom
+
+            # To use wtp_id, we must provide fortigate aswell.
+            if wtp_id:
+                params['url'] += f"/{wtp_id}"
 
         return self.post(method="get", params=params)
 

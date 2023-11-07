@@ -8,13 +8,13 @@ class FortiSwitches(FortiManager):
     def __init__(self, **kwargs):
         super(FortiSwitches, self).__init__(**kwargs)
 
-    def all(self, fortigate: str, vdom: str="root", switch_id: str=None, adom: str=None):
+    def all(self, fortigate: str=None, vdom: str="root", switch_id: str=None, adom: str=None):
         """Retrieves all FortiSwitches or a single FortiSwitch from a FortiGate.
 
         Args:
-            fortigate (str): Name of the FortiGate.
+            fortigate (str, optional): Optional name of a specific FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
-            switch_id (str, optional): Serial number of a specific FortiSwitch.
+            switch_id (str, optional): Optional serial number of a specific FortiSwitch. Note: FortiGate is required to use this filter.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
@@ -25,15 +25,19 @@ class FortiSwitches(FortiManager):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch",
             "scope member": [
                 {
-                    "name": fortigate,
-                    "vdom": vdom
+                    "name": "All_FortiGate"
                 }
             ]
         }
 
-        # Retrieve a single FortiSwitch
-        if switch_id:
-            params['url'] += f"/{switch_id}"
+        # Optional fields
+        if fortigate:
+            params['scope member'][0]['name'] = fortigate
+            params['scope member'][0]['vdom'] = vdom
+
+            # To use switch_id, we must provide fortigate aswell.
+            if switch_id:
+                params['url'] += f"/{switch_id}"
 
         return self.post(method="get", params=params)
 
