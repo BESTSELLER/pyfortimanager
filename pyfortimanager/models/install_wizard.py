@@ -8,7 +8,7 @@ class Install_Wizard(FortiManager):
     def __init__(self, **kwargs):
         super(Install_Wizard, self).__init__(**kwargs)
 
-    def device_settings(self, fortigate: str, vdom: str="root", adom: str=None):
+    def device_settings(self, fortigate: str, vdom: str = "root", adom: str = None):
         """Installs the device settings on a FortiGate.
 
         Args:
@@ -35,7 +35,7 @@ class Install_Wizard(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def policy_package(self, policy_package: str, fortigate: str, vdom: str="root", adom: str=None):
+    def policy_package(self, policy_package: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Installs a policy package on a FortiGate.
 
         Args:

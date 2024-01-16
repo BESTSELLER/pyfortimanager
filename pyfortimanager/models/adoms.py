@@ -8,7 +8,7 @@ class ADOMs(FortiManager):
     def __init__(self, **kwargs):
         super(ADOMs, self).__init__(**kwargs)
 
-    def all(self, name: str=None):
+    def all(self, name: str = None):
         """Retrieves all ADOMs or a single ADOM.
 
         Args:
@@ -43,7 +43,7 @@ class ADOMs(FortiManager):
         }
 
         return self.post(method="exec", params=params)
-    
+
     def unlock(self, name: str):
         """Unlocks an ADOM.
 
@@ -59,7 +59,7 @@ class ADOMs(FortiManager):
         }
 
         return self.post(method="exec", params=params)
-    
+
     def commit(self, name: str):
         """Commit changes to an entire ADOM.
 

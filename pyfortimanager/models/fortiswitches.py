@@ -8,7 +8,7 @@ class FortiSwitches(FortiManager):
     def __init__(self, **kwargs):
         super(FortiSwitches, self).__init__(**kwargs)
 
-    def all(self, fortigate: str=None, vdom: str="root", switch_id: str=None, adom: str=None):
+    def all(self, fortigate: str = None, vdom: str = "root", switch_id: str = None, adom: str = None):
         """Retrieves all FortiSwitches or a single FortiSwitch from a FortiGate.
 
         Args:
@@ -68,13 +68,13 @@ class FortiSwitches(FortiManager):
                         "name": fortigate
                     }
                 ],
-				"flags": 0
+                "flags": 0
             }
         }
 
         return self.post(method="exec", params=params)
-    
-    def refresh(self, fortigates: list, adom: str=None):
+
+    def refresh(self, fortigates: list, adom: str = None):
         """Refreshes all FortiSwitches from one or more FortiGates.
 
         Args:
@@ -98,7 +98,7 @@ class FortiSwitches(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def interfaces(self, switch_id: str, fortigate: str, vdom: str="root"):
+    def interfaces(self, switch_id: str, fortigate: str, vdom: str = "root"):
         """Retrives all interfaces on the specified FortiSwitch.
 
         Args:
@@ -115,7 +115,7 @@ class FortiSwitches(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def interfaces_update(self, ports: list, switch_id: str, fortigate: str, vdom: str="root"):
+    def interfaces_update(self, ports: list, switch_id: str, fortigate: str, vdom: str = "root"):
         """Updates all interfaces on the specified FortiSwitch.
 
         Args:
@@ -135,8 +135,8 @@ class FortiSwitches(FortiManager):
         }
 
         return self.post(method="update", params=params)
-    
-    def add_to_adom(self, name: str, platform: str, switch_id: str, fortigate: str, vdom: str="root", interface: str="Fortilink", adom: str=None, prefer_img_ver: str=None):
+
+    def add_to_adom(self, name: str, platform: str, switch_id: str, fortigate: str, vdom: str = "root", interface: str = "Fortilink", adom: str = None, prefer_img_ver: str = None):
         """Adds a new FortiSwitch as a model device in the FortiSwitch Manager (ADOM).
 
         Args:
@@ -174,8 +174,8 @@ class FortiSwitches(FortiManager):
             params['data']['prefer-img-ver'] = prefer_img_ver
 
         return self.post(method="add", params=params)
-    
-    def add_to_fortigate(self, name: str, switch_id: str, fortigate: str, vdom: str="root", prefer_img_ver: str=None):
+
+    def add_to_fortigate(self, name: str, switch_id: str, fortigate: str, vdom: str = "root", prefer_img_ver: str = None):
         """Adds a new FortiSwitch as a model device on the FortiGate in the FortiSwitch Manager.
 
         Args:
@@ -200,10 +200,10 @@ class FortiSwitches(FortiManager):
         # Optional fields
         if prefer_img_ver:
             params['data']['prefer-img-ver'] = prefer_img_ver
-        
+
         return self.post(method="add", params=params)
-    
-    def update_in_adom(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None, name: str=None, prefer_img_ver: str=None):
+
+    def update_in_adom(self, switch_id: str, fortigate: str, vdom: str = "root", adom: str = None, name: str = None, prefer_img_ver: str = None):
         """Updates a FortiSwitch in the FortiSwitch Manager (ADOM).
 
         Args:
@@ -235,10 +235,10 @@ class FortiSwitches(FortiManager):
 
         if prefer_img_ver:
             params['data']['prefer-img-ver'] = prefer_img_ver
-        
+
         return self.post(method="update", params=params)
 
-    def update_on_fortigate(self, switch_id: str, fortigate: str, vdom: str="root", name: str=None, description: str=None):
+    def update_on_fortigate(self, switch_id: str, fortigate: str, vdom: str = "root", name: str = None, description: str = None):
         """Updates a FortiSwitch on the FortiGate in the FortiSwitch Manager.
 
         Args:
@@ -265,8 +265,8 @@ class FortiSwitches(FortiManager):
             params['data']['description'] = description
 
         return self.post(method="update", params=params)
-    
-    def delete_in_adom(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None):
+
+    def delete_in_adom(self, switch_id: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Updates a FortiSwitch in the FortiSwitch Manager (ADOM).
 
         Args:
@@ -291,7 +291,7 @@ class FortiSwitches(FortiManager):
 
         return self.post(method="delete", params=params)
 
-    def delete_on_fortigate(self, switch_id: str, fortigate: str, vdom: str="root"):
+    def delete_on_fortigate(self, switch_id: str, fortigate: str, vdom: str = "root"):
         """Deletes a FortiSwitch on the FortiGate in the FortiSwitch Manager.
 
         Args:

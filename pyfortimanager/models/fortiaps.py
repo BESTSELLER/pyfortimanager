@@ -8,7 +8,7 @@ class FortiAPs(FortiManager):
     def __init__(self, **kwargs):
         super(FortiAPs, self).__init__(**kwargs)
 
-    def all(self, fortigate: str=None, vdom: str="root", wtp_id: str=None, adom: str=None):
+    def all(self, fortigate: str = None, vdom: str = "root", wtp_id: str = None, adom: str = None):
         """Retrieves all FortiAPs or a single FortiAP from a FortiGate.
 
         Args:
@@ -68,13 +68,13 @@ class FortiAPs(FortiManager):
                         "name": fortigate
                     }
                 ],
-				"flags": 0
+                "flags": 0
             }
         }
 
         return self.post(method="exec", params=params)
 
-    def refresh(self, fortigates: list, adom: str=None):
+    def refresh(self, fortigates: list, adom: str = None):
         """Refreshes all FortiAPs from one or more FortiGates.
 
         Args:
@@ -98,7 +98,7 @@ class FortiAPs(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def profiles(self, name: str=None, adom: str=None):
+    def profiles(self, name: str = None, adom: str = None):
         """Retrieves a list of all AP profiles or a single AP profile.
 
         Args:
@@ -118,7 +118,7 @@ class FortiAPs(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def add(self, name: str, wtp_id: str, fortigate: str, vdom: str="root", wtp_profile: str=None, prefer_img_ver: str=None, description: str=None, adom: str=None):
+    def add(self, name: str, wtp_id: str, fortigate: str, vdom: str = "root", wtp_profile: str = None, prefer_img_ver: str = None, description: str = None, adom: str = None):
         """Adds a new FortiAP.
 
         Args:
@@ -152,7 +152,7 @@ class FortiAPs(FortiManager):
         # Optional fields
         if wtp_profile:
             params['data']['wtp-profile'] = wtp_profile
-        
+
         if prefer_img_ver:
             params['data']['_prefer-img-ver'] = prefer_img_ver
 
@@ -161,7 +161,7 @@ class FortiAPs(FortiManager):
 
         return self.post(method="add", params=params)
 
-    def update(self, wtp_id: str, fortigate: str, vdom: str="root", name: str=None, wtp_profile: str=None, description: str=None, adom: str=None):
+    def update(self, wtp_id: str, fortigate: str, vdom: str = "root", name: str = None, wtp_profile: str = None, description: str = None, adom: str = None):
         """Updates a FortiAP.
 
         Args:
@@ -202,7 +202,7 @@ class FortiAPs(FortiManager):
 
         return self.post(method="update", params=params)
 
-    def delete(self, wtp_id: str, fortigate: str, vdom: str="root", adom: str=None):
+    def delete(self, wtp_id: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Deletes a FortiAP.
 
         Args:
@@ -224,5 +224,5 @@ class FortiAPs(FortiManager):
                 }
             ]
         }
-        
+
         return self.post(method="delete", params=params)

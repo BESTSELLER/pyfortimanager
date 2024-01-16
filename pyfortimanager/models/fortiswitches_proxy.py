@@ -8,7 +8,7 @@ class FortiSwitches_Proxy(FortiManager):
     def __init__(self, **kwargs):
         super(FortiSwitches_Proxy, self).__init__(**kwargs)
 
-    def all(self, fortigate: str, switch_id: str=None, adom: str=None, timeout: int=None):
+    def all(self, fortigate: str, switch_id: str = None, adom: str = None, timeout: int = None):
         """Retrieves a list of all or a single managed FortiSwitches on the FortiGate.
 
         Args:
@@ -39,7 +39,7 @@ class FortiSwitches_Proxy(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def authorize(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None, timeout: int=None):
+    def authorize(self, switch_id: str, fortigate: str, vdom: str = "root", adom: str = None, timeout: int = None):
         """Authorizes a FortiSwitch on the FortiGate.
 
         Args:
@@ -72,8 +72,8 @@ class FortiSwitches_Proxy(FortiManager):
         }
 
         return self.post(method="exec", params=params)
-    
-    def deauthorize(self, switch_id: str, fortigate: str, vdom: str="root", adom: str=None, timeout: int=None):
+
+    def deauthorize(self, switch_id: str, fortigate: str, vdom: str = "root", adom: str = None, timeout: int = None):
         """Deauthorizes a FortiSwitch on the FortiGate.
 
         Args:

@@ -8,7 +8,7 @@ class CLI_Template_Groups(FortiManager):
     def __init__(self, **kwargs):
         super(CLI_Template_Groups, self).__init__(**kwargs)
 
-    def all(self, name: str=None, adom: str=None):
+    def all(self, name: str = None, adom: str = None):
         """Retrieves all CLI template groups or a single CLI template group with members.
 
         Args:
@@ -32,7 +32,7 @@ class CLI_Template_Groups(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def add(self, name: str, members: list=None, description:str=None, adom: str=None):
+    def add(self, name: str, members: list = None, description: str = None, adom: str = None):
         """Adds a CLI template group.
 
         Args:
@@ -48,15 +48,15 @@ class CLI_Template_Groups(FortiManager):
         params = {
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/cli/template-group",
             "data": {
-				"name": name,
-				"member": members,
-				"description": description
+                "name": name,
+                "member": members,
+                "description": description
             }
         }
 
         return self.post(method="add", params=params)
-    
-    def update(self, name: str, members: list=None, description:str=None, adom: str=None):
+
+    def update(self, name: str, members: list = None, description: str = None, adom: str = None):
         """Updates a CLI template group.
 
         Args:
@@ -72,7 +72,7 @@ class CLI_Template_Groups(FortiManager):
         params = {
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/cli/template-group",
             "data": {
-				"name": name
+                "name": name
             }
         }
 
@@ -84,8 +84,8 @@ class CLI_Template_Groups(FortiManager):
             params['data']['description'] = description
 
         return self.post(method="update", params=params)
-    
-    def delete(self, name: str, adom: str=None):
+
+    def delete(self, name: str, adom: str = None):
         """Deletes a CLI template group.
 
         Args:
@@ -100,15 +100,15 @@ class CLI_Template_Groups(FortiManager):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/cli/template-group",
             "confirm": 1,
             "filter": [
-				"name",
-				"in",
-				name
-			],
+                "name",
+                "in",
+                name
+            ],
         }
 
         return self.post(method="delete", params=params)
 
-    def add_member(self, name: str, fortigate: str, vdom: str="root", adom: str=None):
+    def add_member(self, name: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Adds a FortiGate as a member to a CLI template group.
 
         Args:
@@ -132,8 +132,8 @@ class CLI_Template_Groups(FortiManager):
         }
 
         return self.post(method="add", params=params)
-    
-    def remove_member(self, name: str, fortigate: str, vdom: str="root", adom: str=None):
+
+    def remove_member(self, name: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Removes a FortiGate as a member from a CLI template group.
 
         Args:

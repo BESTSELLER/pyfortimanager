@@ -8,7 +8,7 @@ class FortiGates(FortiManager):
     def __init__(self, **kwargs):
         super(FortiGates, self).__init__(**kwargs)
 
-    def all(self, fortigate: str=None, adom: str=None):
+    def all(self, fortigate: str = None, adom: str = None):
         """Retrieves all FortiGates or a single FortiGate.
 
         Args:
@@ -48,19 +48,19 @@ class FortiGates(FortiManager):
             "data": {
                 "adom": self.api.adom,
                 "create_task": "enable",
-				"devices": [
-					{
-						"image": image,
-						"name": fortigate
-					}
-				],
-				"flags": 0
+                "devices": [
+                    {
+                        "image": image,
+                        "name": fortigate
+                    }
+                ],
+                "flags": 0
             }
         }
 
         return self.post(method="exec", params=params)
 
-    def refresh(self, fortigates: dict, adom: str=None):
+    def refresh(self, fortigates: dict, adom: str = None):
         """Refreshes a list of FortiGates.
 
         Args:
@@ -85,13 +85,13 @@ class FortiGates(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def interfaces(self, fortigate: str, interface: str=None):
+    def interfaces(self, fortigate: str, interface: str = None):
         """Retrieves all interfaces or a single interface from a FortiGate.
 
         Args:
             name (str): Name of the FortiGate.
             interface (str): Name of an interface.
-    
+
         Returns:
             dict: JSON data.
         """
@@ -105,8 +105,8 @@ class FortiGates(FortiManager):
             params['url'] = f"/{interface}"
 
         return self.post(method="get", params=params)
-    
-    def add(self, serial: str, mr: int, os_ver: int, name: str=None, mgmt_mode: str="fmg", os_type: str="fos", adm_usr: str=None, adm_pass: str=None, description: str=None, meta_fields: dict=None, flags:int=67371040, prefer_img_ver: str=None, adom: str=None):
+
+    def add(self, serial: str, mr: int, os_ver: int, name: str = None, mgmt_mode: str = "fmg", os_type: str = "fos", adm_usr: str = None, adm_pass: str = None, description: str = None, meta_fields: dict = None, flags: int = 67371040, prefer_img_ver: str = None, adom: str = None):
         """Adds a new FortiGate as a model device in FortiManager.
 
         Args:
@@ -161,8 +161,8 @@ class FortiGates(FortiManager):
             params['data']['device']['prefer_img_ver'] = prefer_img_ver
 
         return self.post(method="exec", params=params)
-    
-    def update(self, fortigate: str, meta_fields: dict=None, adm_pass: str=None, adm_usr: str=None, description: str=None, ip: str=None, latitude: float=None, longitude: float=None, name: str=None, hostname: str=None, prefer_img_ver: str=None, adom: str=None):
+
+    def update(self, fortigate: str, meta_fields: dict = None, adm_pass: str = None, adm_usr: str = None, description: str = None, ip: str = None, latitude: float = None, longitude: float = None, name: str = None, hostname: str = None, prefer_img_ver: str = None, adom: str = None):
         """Updates a FortiGate.
 
         Args:
@@ -220,8 +220,8 @@ class FortiGates(FortiManager):
             params['data']['device']['prefer_img_ver'] = prefer_img_ver
 
         return self.post(method="update", params=params)
-    
-    def delete(self, fortigate: str, adom:str=None):
+
+    def delete(self, fortigate: str, adom: str = None):
         """Deletes a FortiGate.
 
         Args:

@@ -8,7 +8,7 @@ class Device_Groups(FortiManager):
     def __init__(self, **kwargs):
         super(Device_Groups, self).__init__(**kwargs)
 
-    def all(self, name: str=None, adom: str=None):
+    def all(self, name: str = None, adom: str = None):
         """Retrieves all device groups or a single device group with members.
 
         Args:
@@ -32,7 +32,7 @@ class Device_Groups(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def add(self, name: str, description:str=None, adom: str=None):
+    def add(self, name: str, description: str = None, adom: str = None):
         """Adds a device group.
 
         Args:
@@ -47,14 +47,14 @@ class Device_Groups(FortiManager):
         params = {
             "url": f"/dvmdb/adom/{adom or self.api.adom}/group/{name}",
             "data": {
-				"name": name,
-				"desc": description
+                "name": name,
+                "desc": description
             }
         }
 
         return self.post(method="add", params=params)
-    
-    def update(self, name: str, rename: str=None, description:str=None, adom: str=None):
+
+    def update(self, name: str, rename: str = None, description: str = None, adom: str = None):
         """Updates a device group.
 
         Args:
@@ -81,7 +81,7 @@ class Device_Groups(FortiManager):
 
         return self.post(method="update", params=params)
 
-    def delete(self, name: str, adom: str=None):
+    def delete(self, name: str, adom: str = None):
         """Deletes a devoce group.
 
         Args:
@@ -98,7 +98,7 @@ class Device_Groups(FortiManager):
 
         return self.post(method="delete", params=params)
 
-    def add_member(self, name: str, fortigate: str, vdom: str="root", adom: str=None):
+    def add_member(self, name: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Adds a FortiGate as a member to a device group.
 
         Args:
@@ -123,7 +123,7 @@ class Device_Groups(FortiManager):
 
         return self.post(method="add", params=params)
 
-    def remove_member(self, name: str, fortigate: str, vdom: str="root", adom: str=None):
+    def remove_member(self, name: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Removes a FortiGate as a member from a device group.
 
         Args:

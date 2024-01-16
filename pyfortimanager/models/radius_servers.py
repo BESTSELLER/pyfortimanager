@@ -8,7 +8,7 @@ class RADIUS_Servers(FortiManager):
     def __init__(self, **kwargs):
         super(RADIUS_Servers, self).__init__(**kwargs)
 
-    def all(self, name: str=None, adom: str=None):
+    def all(self, name: str = None, adom: str = None):
         """Retrieves all RADIUS servers or a single RADIUS server.
 
         Args:
@@ -28,7 +28,7 @@ class RADIUS_Servers(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def add_member(self, fortigate: str, fortigate_source_ip: str, fortigate_nas_ip: str, radius_server: str, radius_server_ip: str, radius_secret: str, radius_secondary_server_ip: str=None, radius_secondary_secret: str=None, vdom: str="root", adom: str=None):
+    def add_member(self, fortigate: str, fortigate_source_ip: str, fortigate_nas_ip: str, radius_server: str, radius_server_ip: str, radius_secret: str, radius_secondary_server_ip: str = None, radius_secondary_secret: str = None, vdom: str = "root", adom: str = None):
         """Adds a FortiGate as a member to a RADIUS server.
 
         Args:
@@ -71,8 +71,8 @@ class RADIUS_Servers(FortiManager):
             params['data']['secondary-secret'] = radius_secondary_secret
 
         return self.post(method="add", params=params)
-     
-    def update_member(self, radius_server: str, fortigate: str, vdom: str="root", fortigate_source_ip: str=None, fortigate_nas_ip: str=None, radius_server_ip: str=None, radius_secret: str=None, radius_secondary_server_ip: str=None, radius_secondary_secret: str=None, adom: str=None):
+
+    def update_member(self, radius_server: str, fortigate: str, vdom: str = "root", fortigate_source_ip: str = None, fortigate_nas_ip: str = None, radius_server_ip: str = None, radius_secret: str = None, radius_secondary_server_ip: str = None, radius_secondary_secret: str = None, adom: str = None):
         """Updates a FortiGate member on the RADIUS server.
 
         Args:

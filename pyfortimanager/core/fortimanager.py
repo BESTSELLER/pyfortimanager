@@ -70,7 +70,7 @@ class FortiManager(object):
 
             self.api.session.mount("http://", HTTPAdapter(max_retries=self.max_retries))
             response = self.api.session.post(url=self.base_url, json=data, verify=self.api.verify)
-            
+
             # HTTP 200 OK
             if response.status_code == 200:
                 return response.json()
@@ -85,7 +85,7 @@ class FortiManager(object):
 
         # Check if we have a session
         if self.api.session:
-          
+
             # Use the sys_status endpoint as a test to see if our session is valid in FortiManager
             data = {
                 "method": "get",
@@ -102,15 +102,15 @@ class FortiManager(object):
 
             # HTTP 200 OK
             if sys_status.status_code == 200:
-              
+
                 # If the FortiManager request is unsuccessful, log in again.
                 if sys_status.json()['result'][0]['status']['code'] != 0:
                     self.login()
-                  
+
             # Log in again.
             else:
-              self.login()
-                  
+                self.login()
+
         # Log in again.
         else:
             self.login()

@@ -8,7 +8,7 @@ class SDWAN_Templates(FortiManager):
     def __init__(self, **kwargs):
         super(SDWAN_Templates, self).__init__(**kwargs)
 
-    def all(self, name: str=None, adom: str=None):
+    def all(self, name: str = None, adom: str = None):
         """Retrieves all SD-WAN templates or a single SD-WAN template with members.
 
         Args:
@@ -29,7 +29,7 @@ class SDWAN_Templates(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def delete(self, name: str, adom: str=None):
+    def delete(self, name: str, adom: str = None):
         """Deletes a SD-WAN template.
 
         Args:
@@ -47,7 +47,7 @@ class SDWAN_Templates(FortiManager):
 
         return self.post(method="delete", params=params)
 
-    def add_member(self, name: str, fortigate: str, vdom: str="root", adom: str=None):
+    def add_member(self, name: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Adds a FortiGate as a member to a SD-WAN template.
 
         Args:
@@ -72,7 +72,7 @@ class SDWAN_Templates(FortiManager):
 
         return self.post(method="add", params=params)
 
-    def remove_member(self, name: str, fortigate: str, vdom: str="root", adom: str=None):
+    def remove_member(self, name: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Removes a FortiGate as a member from a SD-WAN template.
 
         Args:

@@ -8,7 +8,7 @@ class Scripts(FortiManager):
     def __init__(self, **kwargs):
         super(Scripts, self).__init__(**kwargs)
 
-    def all(self, name: str=None, adom: str=None):
+    def all(self, name: str = None, adom: str = None):
         """Retrieves a list of all scripts or a single script.
 
         Args:
@@ -29,7 +29,7 @@ class Scripts(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def execute(self, name: str, fortigate: str, vdom: str="root", adom: str=None):
+    def execute(self, name: str, fortigate: str, vdom: str = "root", adom: str = None):
         """Executes a script on a FortiGate.
 
         Args:

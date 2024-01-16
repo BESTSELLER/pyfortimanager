@@ -8,14 +8,14 @@ class FortiGates_Proxy(FortiManager):
     def __init__(self, **kwargs):
         super(FortiGates_Proxy, self).__init__(**kwargs)
 
-    def status(self, fortigate: str, adom: str=None, timeout: int=None):
+    def status(self, fortigate: str, adom: str = None, timeout: int = None):
         """Retrieve basic system status on the FortiGate.
 
         Args:
             fortigate (str): Name of the FortiGate.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
-            
+
         Returns:
             dict: JSON data.
         """
@@ -35,7 +35,7 @@ class FortiGates_Proxy(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def resource_usage(self, fortigate: str, adom: str=None, scope: str="global", resource: str=None, interval: str=None, timeout: int=None):
+    def resource_usage(self, fortigate: str, adom: str = None, scope: str = "global", resource: str = None, interval: str = None, timeout: int = None):
         """Retrieves current and historical usage data for a provided resource on the FortiGate.
 
         Args:
@@ -45,7 +45,7 @@ class FortiGates_Proxy(FortiManager):
             resource (str. optional): Get a specific resource to get usage data for. Defaults to all resources. 
             interval (str, optional): Time interval of resource usage [1-min|10-min|30-min|1-hour|12-hour|24-hour]. Defaults to all intervals.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
-            
+
         Returns:
             dict: JSON data.
         """
@@ -72,7 +72,7 @@ class FortiGates_Proxy(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def interfaces(self, fortigate: str, adom: str=None, scope: str="global", include_vlan: bool=True, include_aggregate: bool=True, interface: str=None, timeout: int=None):
+    def interfaces(self, fortigate: str, adom: str = None, scope: str = "global", include_vlan: bool = True, include_aggregate: bool = True, interface: str = None, timeout: int = None):
         """Retrieves a list of interfaces or a specific interface and their configuration on the FortiGate.
 
         Args:
@@ -83,7 +83,7 @@ class FortiGates_Proxy(FortiManager):
             include_aggregate (bool): Enable to include Aggregate interfaces in result list. Default is True.
             interface (str, optional): Retrieve this interface only.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
-            
+
         Returns:
             dict: JSON data.
         """
@@ -107,7 +107,7 @@ class FortiGates_Proxy(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def transceivers(self, fortigate: str, adom: str=None, scope: str="global", timeout: int=None):
+    def transceivers(self, fortigate: str, adom: str = None, scope: str = "global", timeout: int = None):
         """Retrieves a list of transceivers used on the FortiGate.
 
         Args:
@@ -115,7 +115,7 @@ class FortiGates_Proxy(FortiManager):
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             scope (str): Scope from which to retrieve the interface stats from [vdom|global]. Default is global.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
-            
+
         Returns:
             dict: JSON data.
         """
@@ -135,7 +135,7 @@ class FortiGates_Proxy(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def dhcp_leases(self, fortigate: str, adom: str=None, scope: str="global", ipv6: bool=True, interface: str=None, timeout: int=None):
+    def dhcp_leases(self, fortigate: str, adom: str = None, scope: str = "global", ipv6: bool = True, interface: str = None, timeout: int = None):
         """Retrieves a list of all DHCP and DHCPv6 leases on the FortiGate.
 
         Args:
@@ -145,7 +145,7 @@ class FortiGates_Proxy(FortiManager):
             ipv6 (bool): Include IPv6 addresses in the response. Default is True.
             interface (str, optional): Retrieve DHCP leases for this interface only.
             timeout (int, optional): How long to wait for the FortiGate to respond. Defaults to the proxy_timeout set when the API was instantiated.
-            
+
         Returns:
             dict: JSON data.
         """

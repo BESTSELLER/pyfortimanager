@@ -7,8 +7,8 @@ class System(FortiManager):
 
     def __init__(self, **kwargs):
         super(System, self).__init__(**kwargs)
-    
-    def firmware(self, platform: str=None, product: str=None):
+
+    def firmware(self, platform: str = None, product: str = None):
         """Retrieves all available firmware versions for all or a specific product line.
 
         Args:
@@ -36,14 +36,14 @@ class System(FortiManager):
         Returns:
             dict: JSON data.
         """
-   
+
         params = {
             "url": "/sys/ha/status"
         }
 
         return self.post(method="get", params=params)
- 
-    def proxy(self, target: list, action: str="get", payload: object=None, resource: str=None, timeout: int=None):
+
+    def proxy(self, target: list, action: str = "get", payload: object = None, resource: str = None, timeout: int = None):
         """Send and receive a JSON request to/from managed FortiGates. The response will be an array of data, one for each queried device.
 
         Args:
@@ -74,7 +74,7 @@ class System(FortiManager):
 
         return self.post(method="exec", params=params)
 
-    def reboot(self, message: str=None):
+    def reboot(self, message: str = None):
         """Reboots the FortiManager.
 
         Args:
@@ -83,7 +83,7 @@ class System(FortiManager):
         Returns:
             dict: JSON data.
         """
-   
+
         params = {
             "url": "/sys/reboot",
             "data": {
@@ -99,14 +99,14 @@ class System(FortiManager):
         Returns:
             dict: JSON data.
         """
-   
+
         params = {
             "url": "/sys/status"
         }
 
         return self.post(method="get", params=params)
 
-    def tasks(self, task:int=None, filter: list=None, loadsub: bool=True):
+    def tasks(self, task: int = None, filter: list = None, loadsub: bool = True):
         """Retrieves all FortiManager tasks or a single task.
 
         Args:
@@ -117,7 +117,7 @@ class System(FortiManager):
         Returns:
             dict: JSON data.
         """
-   
+
         params = {
             "url": "/task/task",
             "filter": filter,
