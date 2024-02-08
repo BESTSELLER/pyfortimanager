@@ -156,9 +156,11 @@ class FortiSwitches(FortiManager):
         params = {
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch",
             "data": {
-                "name": name,
-                "platform": platform,
                 "switch-id": switch_id,
+                "name": name,
+                "state": 2,
+                "is-model": 1,
+                "platform": platform,
                 "vlan-interface": interface
             },
             "scope member": [

@@ -8,6 +8,7 @@ from pyfortimanager.models.fortigates import FortiGates
 from pyfortimanager.models.fortiswitches_proxy import FortiSwitches_Proxy
 from pyfortimanager.models.fortiswitches import FortiSwitches
 from pyfortimanager.models.install_wizard import Install_Wizard
+from pyfortimanager.models.metadata_variables import MetadataVariables
 from pyfortimanager.models.policy_packages import Policy_Packages
 from pyfortimanager.models.radius_servers import RADIUS_Servers
 from pyfortimanager.models.scripts import Scripts
@@ -88,6 +89,12 @@ class Api(object):
         """Endpoints related to the Install Wizard.
         """
         return Install_Wizard(api=self)
+
+    @property
+    def metadata_variables(self):
+        """Endpoints related to Metadata Variables.
+        """
+        return MetadataVariables(api=self)
 
     @property
     def policy_packages(self):
