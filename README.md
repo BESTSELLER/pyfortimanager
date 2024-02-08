@@ -3,7 +3,7 @@ Python API client library for Fortinet's [FortiManager](https://www.fortinet.com
 
 It does not provide all endpoints or functionality available. We encourage to make a pull request with needed missing endpoints.
 
-> **Note:** This library has been built and tested for FortiManager v7.0.x.
+> **Note:** This library has been built and tested for FortiManager v7.2.x.
 
 ## Installation
 To install run `pip install pyfortimanager`.
