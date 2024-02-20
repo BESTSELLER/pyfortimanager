@@ -1,3 +1,4 @@
+from typing import Optional
 from pyfortimanager.models.adoms import ADOMs
 from pyfortimanager.models.cli_template_groups import CLI_Template_Groups
 from pyfortimanager.models.device_groups import Device_Groups
@@ -18,17 +19,22 @@ from pyfortimanager.models.system import System
 
 class Api(object):
     """Base API class.
+    Use with either username/password or token based auth
     """
 
-    def __init__(self, host: str, username: str, password: str, adom: str = "root", verify: bool = True, proxy_timeout: int = 60, **kwargs):
+    def __init__(self, host: str, username: Optional[str] = None, password: Optional[str] = None, token: Optional[str] = None, adom: str = "root", verify: bool = True, proxy_timeout: int = 60, **kwargs):
         self.host = host
         self.username = username
         self.password = password
+        self.token = token
         self.adom = adom
         self.verify = verify
         self.proxy_timeout = proxy_timeout
         self.session = None
         self.sessionid = None
+
+        if username is None and token is None:
+            raise Exception("username/password or token is needed")
 
     @property
     def adoms(self):

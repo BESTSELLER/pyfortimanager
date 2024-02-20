@@ -2,15 +2,22 @@ from requests.adapters import HTTPAdapter, Retry
 import requests
 import atexit
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from pyfortimanager.core.api import Api
+
 
 class FortiManager(object):
     """API class for FortiManager login management and post requests.
     """
 
-    def __init__(self, api, **kwargs):
+    def __init__(self, api: "Api", **kwargs):
         self.api = api
         self.base_url = f"{self.api.host}/jsonrpc"
         self.max_retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
+        self.api.session = requests.session()
+        self.api.session.mount("http://", HTTPAdapter(max_retries=self.max_retries))
+        
         atexit.register(self.logout)
 
     def login(self):
@@ -19,9 +26,6 @@ class FortiManager(object):
         Returns:
             dict: JSON data.
         """
-
-        # Create a new session
-        self.api.session = requests.session()
 
         data = {
             "method": "exec",
@@ -37,7 +41,6 @@ class FortiManager(object):
             "session": self.api.sessionid
         }
 
-        self.api.session.mount("http://", HTTPAdapter(max_retries=self.max_retries))
         response = self.api.session.post(url=self.base_url, json=data, verify=self.api.verify)
 
         # HTTP 200 OK
@@ -55,6 +58,9 @@ class FortiManager(object):
         Returns:
             dict: JSON data.
         """
+        # if we use token based auth, we dont need to logout
+        if self.api.token is not None:
+            return
 
         # Only try the log out endpoint, if we have a session.
         if self.api.session:
@@ -68,7 +74,6 @@ class FortiManager(object):
                 "session": self.api.sessionid
             }
 
-            self.api.session.mount("http://", HTTPAdapter(max_retries=self.max_retries))
             response = self.api.session.post(url=self.base_url, json=data, verify=self.api.verify)
 
             # HTTP 200 OK
@@ -82,6 +87,9 @@ class FortiManager(object):
     def login_check(self):
         """Checks if we have a valid login session.
         """
+        # if we use token based auth, this check is not needed as the never expire
+        if self.api.token is not None:
+            return
 
         # Check if we have a session
         if self.api.session:
@@ -97,7 +105,6 @@ class FortiManager(object):
                 "session": self.api.sessionid
             }
 
-            self.api.session.mount("http://", HTTPAdapter(max_retries=self.max_retries))
             sys_status = self.api.session.post(url=self.base_url, json=data, verify=self.api.verify)
 
             # HTTP 200 OK
@@ -134,8 +141,8 @@ class FortiManager(object):
             "session": self.api.sessionid
         }
 
-        self.api.session.mount("http://", HTTPAdapter(max_retries=self.max_retries))
-        response = self.api.session.post(url=self.base_url, json=data, verify=self.api.verify)
+        headers = {} if self.api.token is None else { "Authorization": f"Bearer {self.api.token}" }
+        response = self.api.session.post(url=self.base_url, json=data, verify=self.api.verify, headers=headers)
 
         # HTTP 200 OK
         if response.status_code == 200:

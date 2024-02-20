@@ -11,11 +11,27 @@ To install run `pip install pyfortimanager`.
 Alternatively, you can clone the repo and run `python setup.py install`.
 
 ## Login handling
+Starting with FortiManager 7.2.2 there's two ways to login, we support both.
+
+### Username/Password
 As the FortiManager API does not provide an expiration date/time when logging in, we've made some workarounds to handle login sessions without hitting the maximum login session limit in FortiManager.
 We do this by checking if our session is still valid by hitting an API endpoint, and if not we log out with our old token and log in again to retrieve a new token before executing the actual requested API endpoint.
 Additionally, we also use the standard Python module `atexit` to gracefully log out during a Python script executing.
 
 It's therefore not needed to login and logout in your code, as this library handles that for you.
+
+### Token Authentication
+Using token based auth we can skip having to handle sessions, and just use a single token that never expires. Token authentication solves some of the session limits, and seems to be a bit faster as we dont have to check if the token is expired.
+1. First create a user as follows:
+    ```
+    config system admin user
+        edit api_001
+            set user_type api
+            set rpc-permit read-write
+        next
+    end
+    ```
+2. Then generate the token using `execute api-user generate-key api_001` 
 
 ## Quick Start
 To begin, import pyfortimanager and instantiate the API.
