@@ -10,13 +10,6 @@ To install run `pip install pyfortimanager`.
 
 Alternatively, you can clone the repo and run `python setup.py install`.
 
-## Login handling
-As the FortiManager API does not provide an expiration date/time when logging in, we've made some workarounds to handle login sessions without hitting the maximum login session limit in FortiManager.
-We do this by checking if our session is still valid by hitting an API endpoint, and if not we log out with our old token and log in again to retrieve a new token before executing the actual requested API endpoint.
-Additionally, we also use the standard Python module `atexit` to gracefully log out during a Python script executing.
-
-It's therefore not needed to login and logout in your code, as this library handles that for you.
-
 ## Quick Start
 To begin, import pyfortimanager and instantiate the API.
 
@@ -28,10 +21,11 @@ Optionally, its possible to set `adom` which defaults to `root` and `verify` whi
 import pyfortimanager
 fortimanager = pyfortimanager.api(
     host = "https://fortimanager.example.com",
-    username = "apiuser",
-    password = "secret",
+    token = "<api_token_from_fmg>"
 )
 ```
+
+> **Note:** To generate your API token, check the Fortinet docs [here](https://docs.fortinet.com/document/fortimanager/7.2.0/new-features/47777/fortimanager-supports-authentication-token-for-api-administrators-7-2-2).
 
 ## Examples
 ### List all FortiGates.
@@ -69,6 +63,24 @@ else:
     "code": -3,
     "message": "Object does not exist"
 }
+```
+
+### Custom API request.
+Since FortiManager consists of a ton of API endpoints, not all are supported natively in this module.
+
+You can however use the custom_request function in order to reach any API endpoint in FortiManager.
+
+**Code**
+```
+fmg_custom_request = FortiManager.system.custom_request(
+    params={
+        "url": "/dvmdb/adom/root/device",
+        "option": [
+            "get meta"
+        ]
+    }
+)
+print(json.dumps(fmg_custom_request, indent=4))
 ```
 
 ### Adding a FortiGate

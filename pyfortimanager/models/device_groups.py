@@ -82,7 +82,7 @@ class Device_Groups(FortiManager):
         return self.post(method="update", params=params)
 
     def delete(self, name: str, adom: str = None):
-        """Deletes a devoce group.
+        """Deletes a device group.
 
         Args:
             name (str): Name of the device group to delete.

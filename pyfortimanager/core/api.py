@@ -20,15 +20,12 @@ class Api(object):
     """Base API class.
     """
 
-    def __init__(self, host: str, username: str, password: str, adom: str = "root", verify: bool = True, proxy_timeout: int = 60, **kwargs):
+    def __init__(self, host: str, token: str, adom: str = "root", verify: bool = True, proxy_timeout: int = 60, **kwargs):
         self.host = host
-        self.username = username
-        self.password = password
+        self.token = token
         self.adom = adom
         self.verify = verify
         self.proxy_timeout = proxy_timeout
-        self.session = None
-        self.sessionid = None
 
     @property
     def adoms(self):
