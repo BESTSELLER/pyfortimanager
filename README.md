@@ -72,7 +72,7 @@ You can however use the custom_request function in order to reach any API endpoi
 
 **Code**
 ```
-fmg_custom_request = FortiManager.system.custom_request(
+fmg_custom_request = fortimanager.system.custom_request(
     params={
         "url": "/dvmdb/adom/root/device",
         "option": [
