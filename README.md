@@ -78,7 +78,8 @@ fmg_custom_request = FortiManager.system.custom_request(
         "option": [
             "get meta"
         ]
-    }
+    },
+    method="get"
 )
 print(json.dumps(fmg_custom_request, indent=4))
 ```
