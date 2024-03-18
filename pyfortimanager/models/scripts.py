@@ -45,7 +45,7 @@ class Scripts(FortiManager):
         params = {
             "url": f"/dvmdb/adom/{adom or self.api.adom}/script/execute",
             "data": {
-                "adom": self.api.adom,
+                "adom": adom or self.api.adom,
                 "script": name,
                 "scope": [
                     {
