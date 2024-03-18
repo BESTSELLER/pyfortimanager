@@ -32,12 +32,13 @@ class FortiGates(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def upgrade(self, fortigate: str, image: str):
+    def upgrade(self, fortigate: str, image: str, adom: str = None):
         """Upgrades the firmware on the FortiGate.
 
         Args:
             fortigate (str): Name of the FortiGate.
             image (str): Support version with a build number. e.g., 6.4.12-b2060.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
             dict: JSON data.
@@ -46,7 +47,7 @@ class FortiGates(FortiManager):
         params = {
             "url": "/um/image/upgrade/ext",
             "data": {
-                "adom": self.api.adom,
+                "adom": {adom or self.api.adom},
                 "create_task": "enable",
                 "devices": [
                     {
