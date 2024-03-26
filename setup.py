@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="pyfortimanager",
-    version="2.1.1",
+    version="2.2.0",
     description="Python API client library for Fortinet's FortiManager.",
     long_description=long_description,
     long_description_content_type="text/markdown",
