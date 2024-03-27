@@ -47,7 +47,7 @@ class FortiGates(FortiManager):
         params = {
             "url": "/um/image/upgrade/ext",
             "data": {
-                "adom": {adom or self.api.adom},
+                "adom": adom or self.api.adom,
                 "create_task": "enable",
                 "devices": [
                     {
