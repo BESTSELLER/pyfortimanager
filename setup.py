@@ -7,13 +7,13 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="pyfortimanager",
-    version="2.2.1",
+    version="2.3.0",
     description="Python API client library for Fortinet's FortiManager.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache2",
     author="Rasmus Thing",
-    author_email="rasmus.thing@bestseller.com",
+    author_email="network@bestseller.com",
     url="https://github.com/BESTSELLER/pyfortimanager",
     python_requires=">=3.8, <4",
     install_requires=[
