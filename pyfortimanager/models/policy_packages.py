@@ -304,3 +304,20 @@ class Policy_Packages(FortiManager):
         }
 
         return self.post(method="delete", params=params)
+
+    def firewall_policies(self, name: str, adom: str = None):
+        """Retrieves all firewall policies in a policy package.
+
+        Args:
+            name (str): Name of the policy package.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/pkg/{name}/firewall/policy",
+        }
+
+        return self.post(method="get", params=params)

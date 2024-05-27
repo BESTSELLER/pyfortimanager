@@ -23,7 +23,7 @@ class Device_Groups(FortiManager):
             "url": f"/dvmdb/adom/{adom or self.api.adom}/group",
             "option": [
                 "object member"
-            ],
+            ]
         }
 
         # Retrieve a specific device group

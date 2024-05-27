@@ -121,6 +121,26 @@ class System(FortiManager):
 
         return self.post(method="get", params=params)
 
+    def refresh_hitcount(self, policy_package: str, adom: str = None):
+        """Refreshes the hitcount of firewall policies for a specific policy package in FortiManager.
+
+        Args:
+            policy_package (str): Name of the policy package.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/sys/hitcount",
+            "data": {
+                "adom": adom or self.api.adom,
+                "pkg": policy_package
+            }
+        }
+        return self.post(method="exec", params=params)
+
     def tasks(self, task: int = None, filter: list = None, loadsub: bool = True):
         """Retrieves all FortiManager tasks or a single task.
 
@@ -144,3 +164,22 @@ class System(FortiManager):
             params['url'] = f"/task/task/{task}/line"
 
         return self.post(method="get", params=params)
+
+    def task_result(self, task: int = None):
+        """Returns the result of a task in FortiManager.
+
+        Args:
+            task (int): ID of the task.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/sys/task/result",
+            "data": {
+                "taskid": task
+            }
+        }
+
+        return self.post(method="exec", params=params)
