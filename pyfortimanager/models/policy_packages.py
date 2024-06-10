@@ -317,7 +317,49 @@ class Policy_Packages(FortiManager):
         """
 
         params = {
-            "url": f"/pm/config/adom/{adom or self.api.adom}/pkg/{name}/firewall/policy",
+            "url": f"/pm/config/adom/{adom or self.api.adom}/pkg/{name}/firewall/policy"
         }
 
         return self.post(method="get", params=params)
+
+    def firewall_policy_disable(self, id: int, policy_package: str, adom: str = None):
+        """Disables a firewall policy in a policy package.
+
+        Args:
+            id (str): Policy ID to disable.
+            policy_package (str): Name of the policy package.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"pm/config/adom/{adom or self.api.adom}/pkg/{policy_package}/firewall/policy/{id}",
+            "data": {
+                "status": 0
+            }
+        }
+
+        return self.post(method="update", params=params)
+
+    def firewall_policy_enable(self, id: int, policy_package: str, adom: str = None):
+        """Enables a firewall policy in a policy package.
+
+        Args:
+            id (str): Policy ID to enable.
+            policy_package (str): Name of the policy package.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"pm/config/adom/{adom or self.api.adom}/pkg/{policy_package}/firewall/policy/{id}",
+            "data": {
+                "status": 1
+            }
+        }
+
+        return self.post(method="update", params=params)
