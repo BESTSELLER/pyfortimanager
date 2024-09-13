@@ -107,7 +107,7 @@ class FortiGates(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def add(self, serial: str, mr: int, os_ver: int, name: str = None, mgmt_mode: str = "fmg", os_type: str = "fos", adm_usr: str = None, adm_pass: str = None, description: str = None, meta_fields: dict = None, flags: int = 67371040, prefer_img_ver: str = None, adom: str = None):
+    def add(self, serial: str, mr: int, os_ver: int, name: str = None, mgmt_mode: str = "fmg", os_type: str = "fos", adm_usr: str = None, adm_pass: str = None, description: str = None, meta_fields: dict = None, flags: int = 67371040, prefer_img_ver: str = None, adom: str = None, branch_pt: int = None, build: int = None):
         """Adds a new FortiGate as a model device in FortiManager.
 
         Args:
@@ -160,6 +160,12 @@ class FortiGates(FortiManager):
 
         if prefer_img_ver:
             params['data']['device']['prefer_img_ver'] = prefer_img_ver
+        
+        if branch_pt is not None:
+            params['data']['device']['branch_pt'] = branch_pt
+
+        if build is not None:
+            params['data']['device']['build'] = build
 
         return self.post(method="exec", params=params)
 
