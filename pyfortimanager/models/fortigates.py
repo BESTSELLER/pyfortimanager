@@ -124,6 +124,8 @@ class FortiGates(FortiManager):
             meta_fields (dict, optional): Meta fields for the FortiGate. Default is fmg.
             prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            branch_pt (int, optional): Branch point.
+            build (int, optional): Build number.
 
         Returns:
             dict: JSON data.
@@ -161,10 +163,10 @@ class FortiGates(FortiManager):
         if prefer_img_ver:
             params['data']['device']['prefer_img_ver'] = prefer_img_ver
         
-        if branch_pt is not None:
+        if branch_pt:
             params['data']['device']['branch_pt'] = branch_pt
 
-        if build is not None:
+        if build:
             params['data']['device']['build'] = build
 
         return self.post(method="exec", params=params)
