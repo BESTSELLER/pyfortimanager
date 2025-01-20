@@ -320,3 +320,33 @@ class FortiAPs(FortiManager):
         }
 
         return self.post(method="delete", params=params)
+
+    def check_status(self, wtp_id: str, fortigate: str, vdom: str = "root", adom: str = None) -> bool:
+        """Checks if a FortiAP is online.
+    
+        Args:
+            wtp_id (str): Serial number or MAC address of the FortiAP.
+            fortigate (str): Name of the FortiGate managing the FortiAP.
+            vdom (str): Virtual domain name. Defaults to "root".
+            adom (str): Name of the ADOM. Defaults to the ADOM set in the API instance.
+    
+        Returns:
+            bool: True if the FortiAP is online, False otherwise.
+        """
+    
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/wireless-controller/wtp",
+            "scope member": [
+                {
+                    "name": fortigate,
+                    "vdom": vdom
+                }
+            ],
+        }
+    
+        response = self.post(method="get", params=params)
+    
+        for ap in response["data"]:
+            if ap["wtp-id"] == wtp_id:
+                return ap["_conn-state"] == 2
+        return False
