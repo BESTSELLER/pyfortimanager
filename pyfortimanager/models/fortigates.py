@@ -110,32 +110,6 @@ class FortiGates(BaseModel):
 
         return self.post(method="exec", params=params)
 
-    def refresh_switches(self, fortigate: str, adom: str = None):
-        """Refreshes switches on a FortiGates.
-        Note: This API call is unsupported by Fortinet and may not work as expected.
-
-        Args:
-            fortigate (str): Name or oid of the fortigate to refresh switches on. Ex: "FortiGate-VM64-1" or "12345"
-            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
-
-        Returns:
-            dict: JSON data.
-        """
-
-        params = {
-			"url": "deployment/get/controller/status",
-			"data": {
-				"adom": adom or self.api.adom,
-				"ctype": 4,
-				"device": [
-					fortigate
-				],
-				"resync": 1
-			}
-		}
-
-        return self.post(method="exec", params=params)
-
     def interfaces(self, fortigate: str, interface: str = None):
         """Retrieves all interfaces or a single interface from a FortiGate.
 
