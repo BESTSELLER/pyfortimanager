@@ -172,6 +172,34 @@ class MetadataVariables(BaseModel):
 
         return self.post(method="update", params=params)
 
+
+    def set_member(self, variable: str, value: str, fortigate: str, vdom: str = "global", adom: str = None):
+        """Set a FortiGate member and its metadata variable.
+
+        Args:
+            variable (str): Name of the variable.
+            value (str): Value for the variable.
+            fortigate (str): Name of the FortiGate member.
+            vdom (str): Name of the virtual domain for the FortiGate.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fmg/variable/{variable}/dynamic_mapping",
+            "data": {
+                "_scope": {
+                    "name": fortigate,
+                    "vdom": vdom
+                },
+                "value": value
+            }
+        }
+
+        return self.post(method="set", params=params)
+
     def remove_member(self, variable: str, fortigate: str, vdom: str = "global", adom: str = None):
         """Updates a FortiGate member and its metadata variable.
 
