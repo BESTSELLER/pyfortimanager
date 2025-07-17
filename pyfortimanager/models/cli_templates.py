@@ -8,6 +8,62 @@ class CLITemplates(BaseModel):
     def __init__(self, **kwargs):
         super(CLITemplates, self).__init__(**kwargs)
 
+
+    def add(self, name: str, content: str, description: str = None, adom: str = None):
+        """Adds a CLI template.
+
+        Args:
+            name (str): Name of the CLI template.
+            content (str): Content of the CLI template.
+            description (str, optional): Description of the CLI template.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/cli/template",
+            "data": {
+                "type": 1,
+                "name": name,
+                "script": content,
+                "description": description
+            }
+        }
+
+        return self.post(method="add", params=params)
+
+    def update(self, name: str, content: str,  description: str = None, adom: str = None):
+        """Updates a CLI template.
+
+        Args:
+            name (str): Name of the CLI template to update.
+            content (str): Content of the CLI template.
+            description (str, optional): Description of the CLI template.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/cli/template",
+            "data": {
+                "type": 1,
+                "name": name
+            }
+        }
+
+        # Optional fields
+        if content:
+            params['data']['script'] = content
+
+        if description:
+            params['data']['description'] = description
+
+        return self.post(method="update", params=params)
+
     def all(self, name: str = None, adom: str = None):
         """Retrieves all CLI template or a single CLI template with members.
 
