@@ -18,6 +18,7 @@ from pyfortimanager.models.scripts import Scripts
 from pyfortimanager.models.sdwan_templates import SDWANTemplates
 from pyfortimanager.models.system import System
 from pyfortimanager.models.tasks import Tasks
+from pyfortimanager.models.firewall_objects import FirewallObjects
 
 
 class FortiManager(object):
@@ -151,3 +152,9 @@ class FortiManager(object):
         """Endpoints related to tasks
         """
         return Tasks(api=self)
+
+    @property
+    def firewall_objects(self):
+        """Endpoints related to Firewall Objects.
+        """
+        return FirewallObjects(api=self)
