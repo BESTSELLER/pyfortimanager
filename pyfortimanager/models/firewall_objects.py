@@ -108,7 +108,7 @@ class FirewallObjects(BaseModel):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/firewall/addrgrp",
             "data": {
                 "name": name,
-                "members": members
+                "member": members
             }
         }
 
@@ -130,7 +130,7 @@ class FirewallObjects(BaseModel):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/firewall/addrgrp",
             "data": {
                 "name": name,
-                "members": members
+                "member": members
             }
         }
 
