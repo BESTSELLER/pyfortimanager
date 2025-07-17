@@ -9,13 +9,14 @@ class CLITemplates(BaseModel):
         super(CLITemplates, self).__init__(**kwargs)
 
 
-    def add(self, name: str, content: str, description: str = None, adom: str = None):
+    def add(self, name: str, content: str, description: str = None, is_pre_run: bool = False, adom: str = None):
         """Adds a CLI template.
 
         Args:
             name (str): Name of the CLI template.
             content (str): Content of the CLI template.
             description (str, optional): Description of the CLI template.
+            is_pre_run (bool, optional): Whether the template is a pre-run script. Defaults to False.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
@@ -26,6 +27,7 @@ class CLITemplates(BaseModel):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/cli/template",
             "data": {
                 "type": 1,
+                "provision": 1 if is_pre_run else 0,
                 "name": name,
                 "script": content,
                 "description": description
@@ -34,13 +36,14 @@ class CLITemplates(BaseModel):
 
         return self.post(method="add", params=params)
 
-    def update(self, name: str, content: str,  description: str = None, adom: str = None):
+    def update(self, name: str, content: str,  description: str = None, is_pre_run: bool = False, adom: str = None):
         """Updates a CLI template.
 
         Args:
             name (str): Name of the CLI template to update.
             content (str): Content of the CLI template.
             description (str, optional): Description of the CLI template.
+            is_pre_run (bool, optional): Whether the template is a pre-run script. Defaults to False.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
 
         Returns:
@@ -51,6 +54,7 @@ class CLITemplates(BaseModel):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/cli/template",
             "data": {
                 "type": 1,
+                "provision": 1 if is_pre_run else 0,
                 "name": name
             }
         }
