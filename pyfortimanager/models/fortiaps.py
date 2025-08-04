@@ -41,6 +41,31 @@ class FortiAPs(FortiManager):
 
         return self.post(method="get", params=params)
 
+    def all_with_hostname(self, fortigate: str, vdom: str = "root", wtp_id: str = None):
+        """
+        Retrieves FortiAPs directly from the FortiGate device config.
+        This includes real hostname (AP name field).
+
+        Args:
+            fortigate (str): Name of the FortiGate device (required).
+            vdom (str): Name of the virtual domain. Default is 'root'.
+            wtp_id (str, optional): Serial number of a specific AP.
+
+        Returns:
+            dict: JSON data from the FortiGate device.
+        """
+        if not fortigate:
+            raise ValueError("Fortigate name is required.")
+
+        # Base URL
+        url = f"/pm/config/device/{fortigate}/vdom/{vdom}/wireless-controller/wtp"
+
+        # Append specific AP if needed
+        if wtp_id:
+            url += f"/{wtp_id}"
+
+        return self.post(method="get", params={"url": url})
+
     def upgrade(self, fortigate: str, wtp_id: str, image: str):
         """Updates the firmware of a specific FortiAP.
 
