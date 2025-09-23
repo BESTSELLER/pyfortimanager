@@ -131,7 +131,9 @@ class FortiGates(BaseModel):
 
         return self.post(method="get", params=params)
 
-    def add(self, serial: str, mr: int, os_ver: int, name: str = None, mgmt_mode: str = "fmg", os_type: str = "fos", adm_usr: str = None, adm_pass: str = None, description: str = None, meta_fields: dict = None, flags: int = 67371040, prefer_img_ver: str = None, adom: str = None, branch_pt: int = None, build: int = None, blueprint: Optional[str] = None):
+    def add(self, serial: str, mr: int, os_ver: int, name: str = None, mgmt_mode: str = "fmg", os_type: str = "fos", adm_usr: str = None,
+            adm_pass: str = None, description: str = None, meta_fields: dict = None, flags: int = 67371040, prefer_img_ver: str = None, adom: str = None,
+            branch_pt: int = None, build: int = None, blueprint: Optional[str] = None):
         """Adds a new FortiGate as a model device in FortiManager.
 
         Args:
@@ -202,7 +204,7 @@ class FortiGates(BaseModel):
     def add_cluster(self, serial: str, serial_secondary: str, mr: int, os_ver: int, name: str = None,
                     priority_primary: int = 200, priority_secondary: int = 100, ha_mode: str = "AP", mgmt_mode: str = "fmg", ha_group_id: int = 1,
                     os_type: str = "fos", adm_usr: str = None, adm_pass: str = None, description: str = None, meta_fields: dict = None,
-                    flags: int = 67371040, prefer_img_ver: str = None, adom: str = None):
+                    flags: int = 67371040, prefer_img_ver: str = None, adom: str = None, blueprint: Optional[str] = None):
         """Adds a new FortiGate cluster as a model device in FortiManager.
 
         Args:
@@ -224,6 +226,7 @@ class FortiGates(BaseModel):
             meta_fields (dict, optional): Meta fields for the FortiGate. Default is fmg.
             prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            blueprint (str, optional): Device blueprint to use.
 
         Returns:
             dict: JSON data.
@@ -279,6 +282,9 @@ class FortiGates(BaseModel):
 
         if prefer_img_ver:
             params['data']['device']['prefer_img_ver'] = prefer_img_ver
+
+        if blueprint:
+            params['data']['device']['device blueprint'] = blueprint
 
         return self.post(method="exec", params=params)
 
