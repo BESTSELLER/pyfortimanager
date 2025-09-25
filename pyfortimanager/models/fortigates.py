@@ -1,12 +1,36 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from typing import Optional
+from pyfortimanager.core.api import BaseModel
+from pyfortimanager.core.filter import FiltersType
 
 
-class FortiGates(FortiManager):
+class FortiGates(BaseModel):
     """API class for FortiGates.
     """
 
     def __init__(self, **kwargs):
         super(FortiGates, self).__init__(**kwargs)
+
+    def filter(self, filters: FiltersType, fields: Optional[list[str]] = None):
+        """Retrieves a list of FortiGates based on filters.
+
+        Args:
+            filters (FiltersType): filters
+            fields (Optional[list[str]], optional): fields. Defaults to all fields.
+
+        Returns:
+            FMGResponse[dict]: data
+        """
+        params = {
+            "filter": filters.generate(),
+            "loadsub": 0,
+            "url": "/dvmdb/device"
+        }
+
+        if fields:
+            params["fields"] = fields
+
+        result = self.post(method="get", params=params)
+        return result
 
     def all(self, fortigate: str = None, adom: str = None):
         """Retrieves all FortiGates or a single FortiGate.
@@ -107,7 +131,9 @@ class FortiGates(FortiManager):
 
         return self.post(method="get", params=params)
 
-    def add(self, serial: str, mr: int, os_ver: int, name: str = None, mgmt_mode: str = "fmg", os_type: str = "fos", adm_usr: str = None, adm_pass: str = None, description: str = None, meta_fields: dict = None, flags: int = 67371040, prefer_img_ver: str = None, adom: str = None, branch_pt: int = None, build: int = None):
+    def add(self, serial: str, mr: int, os_ver: int, name: str = None, mgmt_mode: str = "fmg", os_type: str = "fos", adm_usr: str = None,
+            adm_pass: str = None, description: str = None, meta_fields: dict = None, flags: int = 67371040, prefer_img_ver: str = None, adom: str = None,
+            branch_pt: int = None, build: int = None, blueprint: Optional[str] = None):
         """Adds a new FortiGate as a model device in FortiManager.
 
         Args:
@@ -126,6 +152,7 @@ class FortiGates(FortiManager):
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
             branch_pt (int, optional): Branch point.
             build (int, optional): Build number.
+            blueprint (str, optional): Device blueprint to use.
 
         Returns:
             dict: JSON data.
@@ -142,7 +169,7 @@ class FortiGates(FortiManager):
                     "name": name or serial,
                     "os_type": os_type,
                     "os_ver": os_ver,
-                    "sn": serial
+                    "sn": serial,
                 }
             }
         }
@@ -169,9 +196,100 @@ class FortiGates(FortiManager):
         if build:
             params['data']['device']['build'] = build
 
+        if blueprint:
+            params['data']['device']['device blueprint'] = blueprint
+
         return self.post(method="exec", params=params)
 
-    def update(self, fortigate: str, meta_fields: dict = None, adm_pass: str = None, adm_usr: str = None, description: str = None, ip: str = None, latitude: float = None, longitude: float = None, name: str = None, hostname: str = None, prefer_img_ver: str = None, adom: str = None):
+    def add_cluster(self, serial: str, serial_secondary: str, mr: int, os_ver: int, name: str = None,
+                    priority_primary: int = 200, priority_secondary: int = 100, ha_mode: str = "AP", mgmt_mode: str = "fmg", ha_group_id: int = 1,
+                    os_type: str = "fos", adm_usr: str = None, adm_pass: str = None, description: str = None, meta_fields: dict = None,
+                    flags: int = 67371040, prefer_img_ver: str = None, adom: str = None, blueprint: Optional[str] = None):
+        """Adds a new FortiGate cluster as a model device in FortiManager.
+
+        Args:
+            name (str): Name of the FortiGate. Default is serial number.
+            serial (str): Serial number of the FortiGate.
+            serial_secondary (str): Serial number of the secondary FortiGate.
+            mr (int): Minor OS version.
+            os_ver (int): Major OS version.
+            os_type (str): fos, fsw, foc, fml, faz, fwb, fch, fct, log, fmg, fsa, fdd, fac, fpx, fna, ffw, fsr, fad, fdc, fap, fxt, fts, fai, fwc, fis, fed. Default is fos.
+            mgmt_mode (str): unreg, fmg, faz, fmgfaz. Default is fmg.
+            ha_group_id (int): HA group ID. Default is 1.
+            priority_primary (int): Priority of the primary foritgate. Default is 200.
+            priority_secondary (int): Priority of the secondary foritgate. Default is 100.
+            ha_mode(str): HA mode. Default is AP.
+            flags (int): Various settings in the "Add Device"-dialog in FortiManager. Use FortiManager to retrieve a specific combination. Default is 67371040.
+            adm_usr (str, optional): Default admin username.
+            adm_pass (str, optional): Default admin password.
+            description (str, optional): Description of the FortiGate.
+            meta_fields (dict, optional): Meta fields for the FortiGate. Default is fmg.
+            prefer_img_ver (str, optional): Enforce the firmware version of the FortiGate. Ex. 7.0.9-b444.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            blueprint (str, optional): Device blueprint to use.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": "/dvm/cmd/add/device",
+            "data": {
+                "adom": adom or self.api.adom,
+                "device": {
+                    "ha_group_name": name or serial,
+                    "ha_group_id": ha_group_id,
+                    "ha_mode": ha_mode,
+                    "ha_slave": [
+                        {
+                            "idx": 0,
+                            "name": name or serial,
+                            "prio": priority_primary,
+                            "role": "master",
+                            "sn": serial
+                        },
+                        {
+                            "idx": 1,
+                            "name": f"{name or serial}-1",
+                            "prio": priority_secondary,
+                            "role": "slave",
+                            "sn": serial_secondary
+                        }
+                    ],
+                    "flags": flags,
+                    "mgmt_mode": mgmt_mode,
+                    "mr": mr,
+                    "name": name or serial,
+                    "os_type": os_type,
+                    "os_ver": os_ver,
+                    "sn": serial
+                }
+            }
+        }
+
+        # Optional fields
+        if adm_usr:
+            params['data']['device']['adm_usr'] = adm_usr
+
+        if adm_pass:
+            params['data']['device']['adm_pass'] = adm_pass
+
+        if description:
+            params['data']['device']['desc'] = description
+
+        if meta_fields:
+            params['data']['device']['meta fields'] = meta_fields
+
+        if prefer_img_ver:
+            params['data']['device']['prefer_img_ver'] = prefer_img_ver
+
+        if blueprint:
+            params['data']['device']['device blueprint'] = blueprint
+
+        return self.post(method="exec", params=params)
+
+
+    def update(self, fortigate: str, meta_fields: dict = None, adm_pass: str = None, adm_usr: str = None, description: str = None, ip: str = None, latitude: float = None, longitude: float = None, name: str = None, hostname: str = None, prefer_img_ver: str = None, adom: str = None, flags: Optional[list[str]] = None):
         """Updates a FortiGate.
 
         Args:
@@ -228,6 +346,9 @@ class FortiGates(FortiManager):
         if prefer_img_ver:
             params['data']['device']['prefer_img_ver'] = prefer_img_ver
 
+        if flags:
+            params['data']['flags'] = flags
+
         return self.post(method="update", params=params)
 
     def delete(self, fortigate: str, adom: str = None):
@@ -250,3 +371,64 @@ class FortiGates(FortiManager):
         }
 
         return self.post(method="exec", params=params)
+
+    def replace(self, fortigate: str, old_serial: str, new_serial: str, admin_user: str, admin_password: str, adom: str = None):
+        """Replaces a FortiGate with another.
+
+        Args:
+            fortigate (str): Name of the FortiGate to replace.
+            new_serial (str): New serial number.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/dvmdb/adom/{adom or self.api.adom}/device/{fortigate}/onboard_rule",
+            "data": [
+				{
+					"sn": new_serial,
+					"old_sn": old_serial,
+					"adm_usr": admin_user,
+					"adm_pass": admin_password,
+					"name": f"_RMA_{old_serial}",
+					"type": 1,
+					"flags": 1
+				}
+			]
+        }
+
+        return self.post(method="set", params=params)
+
+    def meta_variables(self, fortigate: str = None, adom: str = None):
+        """Retrieves all metadata variables for a fortigate.
+
+        Args:
+            fortigate (str): Name of the FortiGate to delete.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fmg/variable",
+            "sub fetch": {
+                "dynamic_mapping": {
+                    "scope member": [
+                        {
+                            "name": fortigate,
+                            "vdom": "global"
+                        }
+                    ],
+                    "subfetch count": [
+                        "==",
+                        1
+                    ]
+                }
+            },
+            "subfetch filter": 1,
+        }
+
+        return self.post(method="get", params=params)

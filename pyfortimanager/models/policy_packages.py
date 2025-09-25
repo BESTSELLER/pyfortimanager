@@ -1,12 +1,35 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from typing import Optional
+from pyfortimanager.core.api import BaseModel
+from pyfortimanager.core.filter import FiltersType
 
 
-class Policy_Packages(FortiManager):
+class PolicyPackages(BaseModel):
     """API class for Policy Packages in Policy & Objects.
     """
 
     def __init__(self, **kwargs):
-        super(Policy_Packages, self).__init__(**kwargs)
+        super(PolicyPackages, self).__init__(**kwargs)
+
+    def filter(self, filters: FiltersType, adom: str = None, fields: Optional[list[str]] = None):
+        """Retrieves a list of policy packages based on filters.
+
+        Args:
+            filters (FiltersType): filters
+            fields (Optional[list[str]], optional): fields. Defaults to all fields.
+
+        Returns:
+            FMGResponse[dict]: data
+        """
+        params = {
+            "filter": filters.generate(),
+            "url": f"/pm/pkg/adom/{adom or self.api.adom}"
+        }
+
+        if fields:
+            params["fields"] = fields
+
+        result = self.post(method="get", params=params)
+        return result
 
     def all(self, name: str = None, adom: str = None):
         """Retrieves all policy packages or a single policy package with members.

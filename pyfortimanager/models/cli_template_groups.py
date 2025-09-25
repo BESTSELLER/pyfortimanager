@@ -1,12 +1,12 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class CLI_Template_Groups(FortiManager):
+class CLITemplateGroups(BaseModel):
     """API class for CLI Template Groups in the Device Manager.
     """
 
     def __init__(self, **kwargs):
-        super(CLI_Template_Groups, self).__init__(**kwargs)
+        super(CLITemplateGroups, self).__init__(**kwargs)
 
     def all(self, name: str = None, adom: str = None):
         """Retrieves all CLI template groups or a single CLI template group with members.

@@ -1,12 +1,12 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class FortiAPs_Proxy(FortiManager):
+class FortiAPsProxy(BaseModel):
     """API class for proxy calls to FortiAPs. Send and receive API calls to/from an online FortiGate.
     """
 
     def __init__(self, **kwargs):
-        super(FortiAPs_Proxy, self).__init__(**kwargs)
+        super(FortiAPsProxy, self).__init__(**kwargs)
 
     def all(self, fortigate: str, adom: str = None, timeout: int = None):
         """Retrieves a list of managed FortiAPs on the FortiGate.

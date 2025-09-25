@@ -1,7 +1,7 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class Scripts(FortiManager):
+class Scripts(BaseModel):
     """API class for Scripts in the Device Manager.
     """
 

@@ -1,7 +1,7 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class FortiAPs(FortiManager):
+class FortiAPs(BaseModel):
     """API class for FortiAPs.
     """
 

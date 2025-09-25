@@ -1,12 +1,40 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from typing import Optional
+from pyfortimanager.core.api import BaseModel
+from pyfortimanager.core.filter import FiltersType
 
 
-class Device_Groups(FortiManager):
+class DeviceGroups(BaseModel):
     """API class for Device Groups in the Device Manager.
     """
 
     def __init__(self, **kwargs):
-        super(Device_Groups, self).__init__(**kwargs)
+        super(DeviceGroups, self).__init__(**kwargs)
+
+    def filter(self, filters: FiltersType, adom: str = None, fields: Optional[list[str]] = None):
+        """Filters device groups.
+
+        Args:
+            filters (FiltersType): Filters to apply.
+            adom (str, optional): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+            fields (Optional[list[str]], optional): Fields to return. Defaults to None.
+
+        Returns:
+            _type_: _description_
+        """
+        params = {
+            "filter": filters.generate(),
+            "loadsub": 0,
+            "url": f"/dvmdb/adom/{adom or self.api.adom}/group",
+            "option": [
+                "object member"
+            ]
+        }
+
+        if fields:
+            params["fields"] = fields
+
+        result = self.post(method="get", params=params)
+        return result
 
     def all(self, name: str = None, adom: str = None):
         """Retrieves all device groups or a single device group with members.

@@ -1,12 +1,12 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class SDWAN_Templates(FortiManager):
+class SDWANTemplates(BaseModel):
     """API class for SD-WAN Templates in the Device Manager.
     """
 
     def __init__(self, **kwargs):
-        super(SDWAN_Templates, self).__init__(**kwargs)
+        super(SDWANTemplates, self).__init__(**kwargs)
 
     def all(self, name: str = None, adom: str = None):
         """Retrieves all SD-WAN templates or a single SD-WAN template with members.
