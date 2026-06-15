@@ -1,12 +1,12 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class Install_Wizard(FortiManager):
+class InstallWizard(BaseModel):
     """API class for the Install Wizard.
     """
 
     def __init__(self, **kwargs):
-        super(Install_Wizard, self).__init__(**kwargs)
+        super(InstallWizard, self).__init__(**kwargs)
 
     def device_settings(self, fortigate: str, vdom: str = "root", adom: str = None):
         """Installs the device settings on a FortiGate.

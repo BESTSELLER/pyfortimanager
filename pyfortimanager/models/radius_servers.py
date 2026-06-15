@@ -1,12 +1,12 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class RADIUS_Servers(FortiManager):
+class RADIUSServers(BaseModel):
     """API class for the RADIUS Servers in Policy & Objects.
     """
 
     def __init__(self, **kwargs):
-        super(RADIUS_Servers, self).__init__(**kwargs)
+        super(RADIUSServers, self).__init__(**kwargs)
 
     def all(self, name: str = None, adom: str = None):
         """Retrieves all RADIUS servers or a single RADIUS server.

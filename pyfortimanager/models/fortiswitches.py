@@ -1,12 +1,32 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from typing import Optional
+from pyfortimanager.core.api import BaseModel
+from pyfortimanager.core.filter import FiltersType
 
 
-class FortiSwitches(FortiManager):
+class FortiSwitches(BaseModel):
     """API class for FortiSwitches.
     """
 
     def __init__(self, **kwargs):
         super(FortiSwitches, self).__init__(**kwargs)
+
+    def filter(self, filters: FiltersType, fields: Optional[list[str]] = None, adom: str = None):
+        params = {
+            "filter": filters.generate(),
+            "loadsub": 0,
+            "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch",
+            "scope member": [
+                {
+                    "name": "All_FortiGate"
+                }
+            ]
+        }
+
+        if fields:
+            params["fields"] = fields
+
+        result = self.post(method="get", params=params)
+        return result
 
     def all(self, fortigate: str = None, vdom: str = "root", switch_id: str = None, adom: str = None):
         """Retrieves all FortiSwitches or a single FortiSwitch from a FortiGate.
@@ -102,7 +122,7 @@ class FortiSwitches(FortiManager):
         """Retrives all interfaces on the specified FortiSwitch.
 
         Args:
-            switch_id (str): Serial number of the FortiSwitch.
+            switch_id (str): Name of the FortiSwitch.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
 
         Returns:
@@ -120,7 +140,7 @@ class FortiSwitches(FortiManager):
 
         Args:
             ports (list): List with all ports and their configuration.
-            switch_id (str): Serial number of the FortiSwitch.
+            switch_id (str): Name of the FortiSwitch.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
 
         Returns:
@@ -136,13 +156,13 @@ class FortiSwitches(FortiManager):
 
         return self.post(method="update", params=params)
 
-    def add_to_adom(self, name: str, platform: str, switch_id: str, fortigate: str, vdom: str = "root", interface: str = "Fortilink", adom: str = None, prefer_img_ver: str = None):
+    def add_to_adom(self, sn: str, platform: str, switch_id: str, fortigate: str, vdom: str = "root", interface: str = "Fortilink", adom: str = None, prefer_img_ver: str = None):
         """Adds a new FortiSwitch as a model device in the FortiSwitch Manager (ADOM).
 
         Args:
-            name (str): Name of the FortiSwitch.
+            sn (str): Serial number of the FortiSwitch.
             platform (str): Model name of the FortiSwitch. Ex. FortiSwitch-108E-FPOE.
-            switch_id (str): Serial number of the FortiSwitch.
+            switch_id (str): Name of the FortiSwitch. 
             interface (str): Name of the FortiGate interface connected to the FortiSwitch.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
@@ -157,7 +177,7 @@ class FortiSwitches(FortiManager):
             "url": f"/pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch",
             "data": {
                 "switch-id": switch_id,
-                "name": name,
+                "sn": sn,
                 "state": 2,
                 "is-model": 1,
                 "platform": platform,
@@ -177,12 +197,12 @@ class FortiSwitches(FortiManager):
 
         return self.post(method="add", params=params)
 
-    def add_to_fortigate(self, name: str, switch_id: str, fortigate: str, vdom: str = "root", prefer_img_ver: str = None):
+    def add_to_fortigate(self, sn: str, switch_id: str, fortigate: str, vdom: str = "root", prefer_img_ver: str = None):
         """Adds a new FortiSwitch as a model device on the FortiGate in the FortiSwitch Manager.
 
         Args:
-            name (str): Name of the FortiSwitch.
-            switch_id (str): Serial number of the FortiSwitch.
+            sn (str): Serial number of the FortiSwitch.
+            switch_id (str): Name of the FortiSwitch. 
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
             prefer_img_ver (str, optional): Enforce the firmware version for the FortiSwitch. Ex. 7.2.5-b0453.
@@ -194,7 +214,7 @@ class FortiSwitches(FortiManager):
         params = {
             "url": f"/pm/config/device/{fortigate}/vdom/{vdom}/switch-controller/managed-switch",
             "data": {
-                "name": name,
+                "sn": sn,
                 "switch-id": switch_id,
             }
         }
@@ -205,15 +225,15 @@ class FortiSwitches(FortiManager):
 
         return self.post(method="add", params=params)
 
-    def update_in_adom(self, switch_id: str, fortigate: str, vdom: str = "root", adom: str = None, name: str = None, prefer_img_ver: str = None):
+    def update_in_adom(self, switch_id: str, fortigate: str, vdom: str = "root", adom: str = None, new_name: str = None, prefer_img_ver: str = None):
         """Updates a FortiSwitch in the FortiSwitch Manager (ADOM).
 
         Args:
-            switch_id (str): Serial number of the FortiSwitch to update.
+            switch_id (str): Name of the FortiSwitch to update.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
-            name (str, optional): Name of the FortiSwitch.
+            new_name (str, optional): New name of the FortiSwitch.
             prefer_img_ver (str, optional): Enforce the firmware version for the FortiSwitch. Ex. 7.2.5-b0453.
 
         Returns:
@@ -232,22 +252,22 @@ class FortiSwitches(FortiManager):
         }
 
         # Optional fields
-        if name:
-            params['data']['name'] = name
+        if new_name:
+            params['data']['switch-id'] = new_name
 
         if prefer_img_ver:
             params['data']['prefer-img-ver'] = prefer_img_ver
 
         return self.post(method="update", params=params)
 
-    def update_on_fortigate(self, switch_id: str, fortigate: str, vdom: str = "root", name: str = None, description: str = None):
+    def update_on_fortigate(self, switch_id: str, fortigate: str, vdom: str = "root", new_name: str = None, description: str = None):
         """Updates a FortiSwitch on the FortiGate in the FortiSwitch Manager.
 
         Args:
-            switch_id (str): Serial number of the FortiSwitch to update.
+            switch_id (str): Name of the FortiSwitch to update.
             fortigate (str): Name of the FortiGate connected to the FortiSwitch.
             vdom (str): Name of the virtual domain for the FortiGate.
-            name (str, optional): Name of the FortiSwitch.
+            new_name (str, optional): New name of the FortiSwitch.
             description (str, optional): Description of the FortiSwitch.
 
         Returns:
@@ -260,8 +280,8 @@ class FortiSwitches(FortiManager):
         }
 
         # Optional fields
-        if name:
-            params['data']['name'] = name
+        if new_name:
+            params['data']['switch-id'] = new_name
 
         if description:
             params['data']['description'] = description
@@ -272,7 +292,7 @@ class FortiSwitches(FortiManager):
         """Updates a FortiSwitch in the FortiSwitch Manager (ADOM).
 
         Args:
-            switch_id (str): Serial number of the FortiSwitch to delete.
+            switch_id (str): Name of the FortiSwitch to delete.
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
             adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
@@ -297,7 +317,7 @@ class FortiSwitches(FortiManager):
         """Deletes a FortiSwitch on the FortiGate in the FortiSwitch Manager.
 
         Args:
-            switch_id (str): Serial number of the FortiSwitch to delete.
+            switch_id (str): Name of the FortiSwitch to delete.
             fortigate (str): Name of the FortiGate.
             vdom (str): Name of the virtual domain for the FortiGate.
 
@@ -310,3 +330,31 @@ class FortiSwitches(FortiManager):
         }
 
         return self.post(method="delete", params=params)
+
+    def replace(self, switch_id: str, new_serial: str, fortigate: str, vdom: str = "root", adom: str = None):
+        """Replaces a FortiSwitch with another.
+
+        Args:
+            switch_id (str): Name of the FortiSwitch to replace.
+            new_serial (str): New serial number.
+            adom (str): Name of the ADOM. Defaults to the ADOM set when the API was instantiated.
+
+        Returns:
+            dict: JSON data.
+        """
+
+        params = {
+            "url": f"pm/config/adom/{adom or self.api.adom}/obj/fsp/managed-switch/{switch_id}",
+            "data": {
+                "_replacement-id": new_serial,
+            },
+            "scope member": [
+                {
+                    "name": fortigate,
+                    "vdom": vdom
+                }
+            ],
+            "no-dirty-pkg": 1
+        }
+
+        return self.post(method="update", params=params)

@@ -1,12 +1,12 @@
-from pyfortimanager.core.fortimanager import FortiManager
+from pyfortimanager.core.api import BaseModel
 
 
-class ADOMs(FortiManager):
+class Adoms(BaseModel):
     """API class for ADOM management.
     """
 
     def __init__(self, **kwargs):
-        super(ADOMs, self).__init__(**kwargs)
+        super(Adoms, self).__init__(**kwargs)
 
     def all(self, name: str = None):
         """Retrieves all ADOMs or a single ADOM.
